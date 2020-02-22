@@ -1,7 +1,7 @@
 ﻿using OnlineHotelBookingApplication.Entity;
 using OnlineHotelBookingApplication.DAL;
 using System.Web.Mvc;
-using System;
+using System.Collections.Generic;
 
 namespace OnlineHotelBookingApplication.Controllers
 {
@@ -14,22 +14,28 @@ namespace OnlineHotelBookingApplication.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignUp(User user)
+        //public ActionResult SignUp([Bind(Include = "firstName")]User user)
+        public ActionResult SignUp([Bind(Exclude = "password")]User user)
         {
-            if (ModelState.IsValid)
-            {
-                TryUpdateModel<User>(user);
-                repository.Add(user);
-            }
-            return View();// Redirect("LogIn");
-
+            //if (ModelState.IsValid)
+            //{
+            //}
+            repository.Add(user);
+            return RedirectToAction("Portal");
+            //return View();// Redirect("LogIn");
+        }
+        public ActionResult Portal()
+        {
+            IEnumerable<User> details = repository.Display();
+            ViewBag.store = details;
+            return View();
         }
         public ActionResult SignIn()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult SignIn(User user)
+        public ActionResult SignIn([Bind(Exclude =("password"))] User user)
         {
             if (ModelState.IsValid)
             {

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<OnlineHotelBookingApplication.Entity.User>
+@{
+    ViewBag.Title = "Portal";
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+<h2>Portal</h2>
+<table border="1">
+    <tr>
+        <td>Firstname</td>
+        <td>LastName</td>
+        <td>MobileNumber</td>
+        <td>Gmail</td>
+        <td>Password</td>
+        <td>UserType</td>
+    </tr>
+    @foreach(OnlineHotelBookingApplication.Entity.User user in (List<OnlineHotelBookingApplication.Entity.User>) ViewBag.Store)
+    {
+        <tr>
+            <td>@user.firstName</td>
+            <td>@user.lastName</td>
+            <td>@user.mobileNumber</td>
+            <td>@user.gmail</td>
+            <td>@user.password</td>
+            <td>@user.userType</td>
+        </tr>
+    }
+</table>

@@ -5,6 +5,10 @@ namespace OnlineHotelBookingApplication.DAL
     public class Repository
     {
         public static List<User> list = new List<User>();
+        public IEnumerable<User> Display()
+        {
+            return list;
+        }
         //static Repository()
         //{
         //    User user = new User("Gowtham", "12345Aa#");

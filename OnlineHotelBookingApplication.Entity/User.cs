@@ -8,19 +8,21 @@ namespace OnlineHotelBookingApplication.Entity
     }
     public class User
     {
-        [Required(ErrorMessage = "First Name is required.")]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        //[Required(ErrorMessage = "First Name is required.")]
+        //[RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string firstName { get; set; }
-        [Required(ErrorMessage = "Last Name is required.")]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        //[Required(ErrorMessage = "Last Name is required.")]
+        //[RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string lastName { get; set; }
-        [Required(ErrorMessage = "First Name is required.")]
+        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
         public long mobileNumber { get; set; }
-        [Required]
+        //[Required]
         public string gmail { get; set; }
-        [Required]
+        //[RegularExpression("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+         //[Required]
         public string password { get; set; }
-        [Required]
+        //[RegularExpression("([a-z]|[A-Z]|[0-9]|[\\W]){4}[a-zA-Z0-9\\W]{3,11}", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        //[Required]
         public UserType userType { get; set; }
         public User(string firstName, string lastName, long mobileNumber, string gmail, string password, string userType)
         {
