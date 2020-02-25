@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
+
 namespace OnlineHotelBookingApplication.Entity
 {
     public enum UserType
@@ -14,14 +16,15 @@ namespace OnlineHotelBookingApplication.Entity
         //[Required(ErrorMessage = "Last Name is required.")]
         //[RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string lastName { get; set; }
+        //[Required(ErrorMessage = "Mobile Number is required.")]
         //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
         public long mobileNumber { get; set; }
         //[Required]
+        [Key]
+        //[RegularExpression("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Enter a valid email id.")]
         public string gmail { get; set; }
-        //[RegularExpression("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
-         //[Required]
+        //[Required]
         public string password { get; set; }
-        //[RegularExpression("([a-z]|[A-Z]|[0-9]|[\\W]){4}[a-zA-Z0-9\\W]{3,11}", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         //[Required]
         public UserType userType { get; set; }
         public User(string firstName, string lastName, long mobileNumber, string gmail, string password, string userType)
@@ -38,6 +41,14 @@ namespace OnlineHotelBookingApplication.Entity
             this.password = password;
         }
         public User()
+        {
+
+        }
+    }
+    public class UserContext : DbContext
+    {
+        public DbSet<User> DataBase {get; set;}
+        public UserContext() : base("ConnectionDB")
         {
 
         }

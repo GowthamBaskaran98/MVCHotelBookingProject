@@ -1,13 +1,36 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Hotel Booking Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+   
+        
 </head>
 <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Heaven in hand", "HomePage", "HotelBooking", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SignUp", "SignUp", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SignIn", "SignIn", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+    </div>
     <div>
-        <h1>ONLINE HOTEL BOOKING</h1>
+        @*<h1>ONLINE HOTEL BOOKING</h1>
         <table>
             <tr>
                 <td>
@@ -20,7 +43,7 @@
                     @Html.ActionLink("SignIn", "SignIn")
                 </td>
             </tr>
-        </table>
+        </table>*@
         @RenderBody()
     </div>
 </body>

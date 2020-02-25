@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using OnlineHotelBookingApplication.Entity;
+using System.Linq;
+
 namespace OnlineHotelBookingApplication.DAL
 {
     public class Repository
@@ -8,6 +10,11 @@ namespace OnlineHotelBookingApplication.DAL
         public IEnumerable<User> Display()
         {
             return list;
+        }
+        public static List<User> Demo()
+        {
+            UserContext user = new UserContext();
+            return user.DataBase.ToList();
         }
         //static Repository()
         //{

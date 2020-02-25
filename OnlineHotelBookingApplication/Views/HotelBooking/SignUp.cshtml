@@ -13,50 +13,36 @@
 @using (Html.BeginForm("SignUp", "HotelBooking", FormMethod.Post))
 {
     <div>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div>
             @Html.LabelFor(model => model.firstName, htmlAttributes: new { })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
-            </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.lastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control" } })
+        <div>
+            @Html.LabelFor(model => model.lastName, htmlAttributes: new { })
+                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-            </div>
         </div>
         <div>
             @Html.LabelFor(model => model.mobileNumber, htmlAttributes: new { })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.mobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.mobileNumber, new { htmlAttributes = new {  } })
                 @Html.ValidationMessageFor(model => model.mobileNumber, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.gmail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.gmail, new { htmlAttributes = new { @class = "form-control" } })
+        <div>
+            @Html.LabelFor(model => model.gmail, htmlAttributes: new { })
+                @Html.EditorFor(model => model.gmail, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.gmail, "", new { @class = "text-danger" })
-            </div>
         </div>
         <div>
             @Html.LabelFor(model => model.password, htmlAttributes: new { })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-            </div>
         </div>
         <div>
             @Html.LabelFor(model => model.userType, htmlAttributes: new { })
-            <div class="col-md-10">
                 @Html.EnumDropDownListFor(model => model.userType)
                 @Html.ValidationMessageFor(model => model.userType, "", new { @class = "text-danger" })
-            </div>
         </div>
         <div>
             <input type="submit" value="Submit" />

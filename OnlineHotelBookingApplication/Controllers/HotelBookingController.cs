@@ -2,7 +2,6 @@
 using OnlineHotelBookingApplication.DAL;
 using System.Web.Mvc;
 using System.Collections.Generic;
-
 namespace OnlineHotelBookingApplication.Controllers
 {
     public class HotelBookingController : Controller
@@ -17,12 +16,12 @@ namespace OnlineHotelBookingApplication.Controllers
         //public ActionResult SignUp([Bind(Include = "firstName")]User user)
         public ActionResult SignUp([Bind(Exclude = "password")]User user)
         {
-            //if (ModelState.IsValid)
-            //{
-            //}
-            repository.Add(user);
-            return RedirectToAction("Portal");
-            //return View();// Redirect("LogIn");
+            if (ModelState.IsValid)
+            {
+                repository.Add(user);
+                return RedirectToAction("Portal");
+            }
+            return View();
         }
         public ActionResult Portal()
         {
@@ -49,6 +48,7 @@ namespace OnlineHotelBookingApplication.Controllers
         }
         public ActionResult HomePage()
         {
+            IEnumerable<User> list = Repository.Demo();
             return View();
         }
     }
