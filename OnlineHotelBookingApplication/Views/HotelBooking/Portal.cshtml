@@ -1,9 +1,12 @@
-﻿@model IEnumerable<OnlineHotelBookingApplication.Entity.User>
+﻿@model OnlineHotelBookingApplication.Models.UserViewModel
+
 @{
     ViewBag.Title = "Portal";
     Layout = "~/Views/Shared/Master.cshtml";
 }
+
 <h2>Portal</h2>
+
 <table border="1">
     <tr>
         <td>Firstname</td>
@@ -13,7 +16,7 @@
         <td>Password</td>
         <td>UserType</td>
     </tr>
-    @foreach(OnlineHotelBookingApplication.Entity.User user in (List<OnlineHotelBookingApplication.Entity.User>) ViewBag.Store)
+    @foreach (OnlineHotelBookingApplication.Models.UserViewModel user in (List<OnlineHotelBookingApplication.Models.UserViewModel>)ViewBag.Store)
     {
         <tr>
             <td>@user.firstName</td>

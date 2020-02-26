@@ -2,8 +2,11 @@
 using OnlineHotelBookingApplication.DAL;
 using System.Web.Mvc;
 using System.Collections.Generic;
+using OnlineHotelBookingApplication.Models;
+
 namespace OnlineHotelBookingApplication.Controllers
 {
+    [HandleError]
     public class HotelBookingController : Controller
     {
         Repository repository = new Repository();
@@ -13,11 +16,21 @@ namespace OnlineHotelBookingApplication.Controllers
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         //public ActionResult SignUp([Bind(Include = "firstName")]User user)
-        public ActionResult SignUp([Bind(Exclude = "password")]User user)
+        //public ActionResult SignUp([Bind(Exclude = "password")]User user)
+        public ActionResult SignUp(UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
             {
+                User user = new User
+                {
+                    firstName = userViewModel.firstName,
+                    lastName = userViewModel.lastName,
+                    mobileNumber = userViewModel.mobileNumber,
+                    gmail = userViewModel.gmail,
+                    password = userViewModel.password
+                };
                 repository.Add(user);
                 return RedirectToAction("Portal");
             }

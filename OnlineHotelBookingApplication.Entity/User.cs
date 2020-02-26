@@ -45,12 +45,4 @@ namespace OnlineHotelBookingApplication.Entity
 
         }
     }
-    public class UserContext : DbContext
-    {
-        public DbSet<User> DataBase {get; set;}
-        public UserContext() : base("ConnectionDB")
-        {
-
-        }
-    }
 }

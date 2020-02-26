@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using OnlineHotelBookingApplication.App_Start;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace OnlineHotelBookingApplication
+namespace OnlineHotelBookingApplication 
 {
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -13,6 +10,7 @@ namespace OnlineHotelBookingApplication
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
 }

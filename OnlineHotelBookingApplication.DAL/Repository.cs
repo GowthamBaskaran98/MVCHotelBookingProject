@@ -27,7 +27,9 @@ namespace OnlineHotelBookingApplication.DAL
         //}
         public void Add(User user)
         {
-            list.Add(user);
+            UserContext userContext = new UserContext();
+            userContext.DataBase.Add(user);
+            userContext.SaveChanges();
         }
     }
 }
