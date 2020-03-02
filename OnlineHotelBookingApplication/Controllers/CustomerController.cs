@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace OnlineHotelBookingApplication.Controllers
 {
-    public class ExceptionController : Controller
+    public class CustomerController : Controller
     {
-        // GET: Exception
-        public ActionResult Filter()
+        // GET: Customer
+        public ActionResult CustomerPage()
         {
             return View();
         }

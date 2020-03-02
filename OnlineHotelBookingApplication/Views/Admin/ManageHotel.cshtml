@@ -1,0 +1,10 @@
+﻿@model OnlineHotelBookingApplication.Models.HotelViewModel
+@{
+    ViewBag.Title = "ManageHotel";
+}
+
+@using (Html.BeginForm("ManageHotel", "Admin", FormMethod.Post))
+{
+    @Html.ActionLink("AddHotel", "AddHotel", new { area = "" }, new { @class = "navbar-brand" })
+
+}

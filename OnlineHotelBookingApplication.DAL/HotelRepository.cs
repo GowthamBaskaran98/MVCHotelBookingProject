@@ -1,20 +1,19 @@
 ﻿using OnlineHotelBookingApplication.Entity;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OnlineHotelBookingApplication.DAL
 {
-    public class UserContext : DbContext
+    public class HotelRepository
     {
-        public DbSet<User> dataset { get; set; }
-        public DbSet<Hotel> HotelData { get; set; }
-        public UserContext() : base("ConnectionDB")
+        public void AddHotel(Hotel hotel)
         {
-
+            UserContext userContext = new UserContext();
+            userContext.HotelData.Add(hotel);
+            userContext.SaveChanges();
         }
-    }
+    } 
 }

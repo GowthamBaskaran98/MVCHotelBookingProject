@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -131,31 +140,38 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\HotelImage.jpg" />
+    <Content Include="Images\images.jpg" />
+    <Content Include="Images\source.gif" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="scripts\JavaScript.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\Master.cshtml" />
-    <Content Include="Views\HotelBooking\SignIn.cshtml" />
-    <Content Include="Views\HotelBooking\SignUp.cshtml" />
+    <Content Include="Views\User\SignIn.cshtml" />
+    <Content Include="Views\User\SignUp.cshtml" />
     <Content Include="Views\Shared\PartialViewExample.cshtml" />
     <Content Include="Views\Shared\back.cshtml" />
     <Content Include="Views\Shared\Home.cshtml" />
-    <Content Include="Views\HotelBooking\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\ExceptionController.cs" />
-    <Compile Include="Controllers\HotelBookingController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HotelViewModel.cs" />
+    <Compile Include="Models\SignInViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -172,8 +188,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\HotelBooking\Portal.cshtml" />
+    <Content Include="Views\User\Portal.cshtml" />
     <Content Include="Views\Exception\Filter.cshtml" />
+    <Content Include="Views\Admin\ManageHotel.cshtml" />
+    <Content Include="Views\Admin\ManageUser.cshtml" />
+    <Content Include="Views\Admin\AdminPage.cshtml" />
+    <Content Include="Views\Customer\CustomerPage.cshtml" />
+    <Content Include="Views\Admin\AddHotel.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -185,8 +208,12 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OnlineHotelBookingApplication.BL\OnlineHotelBookingApplication.BL.csproj">
+      <Project>{E91D83F5-D563-4979-8AF5-9A60A90A6BF6}</Project>
+      <Name>OnlineHotelBookingApplication.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OnlineHotelBookingApplication.DAL\OnlineHotelBookingApplication.DAL.csproj">
-      <Project>{410b1a5c-0bb9-4402-83b4-679c09665b77}</Project>
+      <Project>{410B1A5C-0BB9-4402-83B4-679C09665B77}</Project>
       <Name>OnlineHotelBookingApplication.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\OnlineHotelBookingApplication.Entity\OnlineHotelBookingApplication.Entity.csproj">

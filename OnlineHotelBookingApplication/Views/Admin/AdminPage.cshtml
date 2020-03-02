@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "AdminPage";
+}
+<h2>Welcome to Hotel Booking Application</h2>
+
+@using (Html.BeginForm("AdminPage", "Admin", FormMethod.Post))
+{
+    //<input type="submit" value="Manage Hotel" onclick="window.location='@Url.Action("Admin","ManageHotel")'" id='input_submit' class='input_field'>
+    //<input type="submit" value="Manage User" onclick="window.location='@Url.Action("ManageUser", "Admin")'" id='input_submit' class='input_field'>
+
+    @Html.ActionLink("ManageHotel", "ManageHotel", new { area = "" }, new { @class = "navbar-brand" })
+    @Html.ActionLink("ManageUser", "ManageUser", new { area = "" }, new { @class = "navbar-brand" })
+}

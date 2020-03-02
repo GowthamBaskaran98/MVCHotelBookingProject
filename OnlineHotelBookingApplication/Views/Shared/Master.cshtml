@@ -6,9 +6,7 @@
     <title>@ViewBag.Title - Hotel Booking Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
-
-   
-        
+    <script src="~/scripts/JavaScript.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -20,8 +18,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Heaven in hand", "HomePage", "HotelBooking", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("SignUp", "SignUp", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("SignIn", "SignIn", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SignUp", "SignUp", "User", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SignIn", "SignIn", "User", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>

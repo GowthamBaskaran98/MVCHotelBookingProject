@@ -1,17 +1,163 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    background-image: url('/Images/HotelImage.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    
+    /* make the body full height*/
+    /* set our custom font */
+    /* create a linear gradient*/
+    /* display: flex;*/
 }
 
-/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.text-danger {
+    color: red;
+}
+
+.input_container {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+    .input_container:hover {
+        background-color: white;
+    }
+
+.input_container,
+#input_submit {
+    align-content: center;
+    height: 40px;
+    border-radius: 30px;
+    margin-left: 15%;
+    width: 70%;
+}
+
+.input_field {
+    color: blue;
+    background-color: inherit;
+    width: 1000%;
+    border: none;
+    font-size: 1.3rem;
+    padding-left: 30px;
+}
+
+ .input_field:hover,
+ .input_field:focus {
+    outline: none;
+ }
+
+#input_submit {
+    background-color: wheat;
+    padding-left: 0;
+    font-weight: bold;
+    color: blue;
+    text-transform: uppercase;
+}
+
+#input_submit:hover {
+    background-color: red;
+    transition: background-color, 1s;
+    cursor: pointer;
+}
+
+/*:root {
+    --body_gradient_left:#7200D0;
+    --body_gradient_right: #C800C1;
+    --form_bg: #ffffff;
+    --input_bg: #E5E5E5;
+    --input_hover:#eaeaea;
+    --submit_bg: #1FCC44;
+    --submit_hover: #40e263;
+    --icon_color:#6b6b6b;
+}*/
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#form_wrapper {
+    width: 500px;
+    height: 550px;
+    /* this will help us center it*/
+    margin: auto;
+    color: #fff;
+    background: rgba(0,0,0,0.13);
+    border-radius: 50px;
+    /* make it a grid container*/
+    display: grid;
+    /* with two columns of same width*/
+    /* with a small gap in between them*/
+    /*grid-gap: 5vw;*/
+    /* add some padding around */
+    padding: 50px;
+}
+
+/*#form_left {
+    /* center the image */
+/*display: flex;
+    justify-content: center;
+    align-items: flex-end ;
+}
+
+#form_left img {
+    width: 350px;
+    height: 350px;
+}*/
+
+#form {
+    display: grid;
+    align-content: stretch;
+    padding: 10% 1%;
+}
+
+#signUpForm {
+    display: grid;
+    align-content: stretch;
+    padding: 10% 1%;
+}
+#hotelForm {
+    display: grid;
+    align-content: stretch;
+    padding: 1% 1%;
+}
+h1,
+span {
+    text-align: center;
+    color: blue;
+}
+
+#create_account {
+    display: block;
+    position: relative;
+    top: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: red;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: red;
+    }
+
+i {
+    color: red;
 }

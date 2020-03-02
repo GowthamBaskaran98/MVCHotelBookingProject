@@ -1,15 +1,26 @@
-﻿@model OnlineHotelBookingApplication.Entity.User
+﻿@model OnlineHotelBookingApplication.Models.SignInViewModel
 @{
     ViewBag.Title = "SignIn";
 }
-@{
-    Html.RenderPartial("Home");
-}
 <h2>SignIn</h2>
     @Html.Partial("PartialViewExample");
-@using (Html.BeginForm("SignIn", "HotelBooking", FormMethod.Post))
+@using (Html.BeginForm("SignIn", "User", FormMethod.Post))
 {
-    <div>
+     <div id="form_wrapper">
+            <div id="form">
+                <h1>Login</h1>
+                <div class="input_container">
+                    @*<i class="fas fa-envelope"></i>*@
+                    @Html.TextBoxFor(model => model.Gmail, new { placeholder = "Gmail ID" , @class = "input_field" })
+                </div>
+                <div class="input_container">
+                    @*<i class="fas fa-lock"></i>*@
+                    @Html.TextBoxFor(model => model.Password, "", new { placeholder = "Password", @class = "input_field" })
+                </div>
+                <input type="submit" value="Login" id='input_submit' class='input_field'>
+            </div>
+        </div>
+    @*<div>
         <div>
             @Html.LabelFor(model => model.gmail, htmlAttributes: new { })
                 @Html.EditorFor(model => model.gmail, new { htmlAttributes = new { } })
@@ -26,5 +37,5 @@
                 Html.RenderAction("back");
             }
         </div>
-    </div>
+    </div>*@
 }
