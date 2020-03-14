@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -61,7 +62,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbUtil.cs" />
     <Compile Include="HotelRepository.cs" />
+    <Compile Include="Migrations\202003120629337_updates.cs" />
+    <Compile Include="Migrations\202003120629337_updates.designer.cs">
+      <DependentUpon>202003120629337_updates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003130844240_da.cs" />
+    <Compile Include="Migrations\202003130844240_da.designer.cs">
+      <DependentUpon>202003130844240_da.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003130858159_daa.cs" />
+    <Compile Include="Migrations\202003130858159_daa.designer.cs">
+      <DependentUpon>202003130858159_daa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003140439209_image.cs" />
+    <Compile Include="Migrations\202003140439209_image.designer.cs">
+      <DependentUpon>202003140439209_image.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003140454157_images.cs" />
+    <Compile Include="Migrations\202003140454157_images.designer.cs">
+      <DependentUpon>202003140454157_images.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003140556227_imageSetter.cs" />
+    <Compile Include="Migrations\202003140556227_imageSetter.designer.cs">
+      <DependentUpon>202003140556227_imageSetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="UserContext.cs" />
@@ -75,6 +102,26 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202003120629337_updates.resx">
+      <DependentUpon>202003120629337_updates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130844240_da.resx">
+      <DependentUpon>202003130844240_da.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003130858159_daa.resx">
+      <DependentUpon>202003130858159_daa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140439209_image.resx">
+      <DependentUpon>202003140439209_image.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140454157_images.resx">
+      <DependentUpon>202003140454157_images.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003140556227_imageSetter.resx">
+      <DependentUpon>202003140556227_imageSetter.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

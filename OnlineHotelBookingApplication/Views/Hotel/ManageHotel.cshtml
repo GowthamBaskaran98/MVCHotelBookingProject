@@ -1,8 +1,11 @@
 ﻿@model IEnumerable<OnlineHotelBookingApplication.Models.HotelViewModel>
+@{
+    ViewBag.Title = "ManageHotel";
+}
 
 <table border="1">
     <tr>
-        <td>HotelId</td>
+        <td>Hotel Id</td>
         <td>Hotel Name</td>
         <td>Hotel Address</td>
         <td>Services</td>
@@ -10,19 +13,18 @@
     @foreach (OnlineHotelBookingApplication.Models.HotelViewModel user in Model)
     {
         <tr>
-            <td style="color:blue;font-size:larger">@user.HotelName</td>
-        </tr>
-        <tr>
             <td>@user.HotelId</td>
             <td>@user.HotelName</td>
             <td>@user.HotelAddress</td>
             <td>@user.Services</td>
-        </tr>
-        <tr>
             <td>
-                @Html.ActionLink("ViewDeal", "DisplayRoomType", "Hotel", new { HotelId = user.HotelId },"")
-                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId })
+                @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId })
+                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { onclick = "return confirm('Do you wish to delete this data?')" })
             </td>
         </tr>
     }
-</table>        
+</table>
+@using (Html.BeginForm("ManageHotel", "Hotel", FormMethod.Post))
+{
+    @Html.ActionLink("AddHotel", "AddHotel", new { @class = "Button" })
+}

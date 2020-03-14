@@ -10,7 +10,13 @@
     /* create a linear gradient*/
     /* display: flex;*/
 }
-
+.MasterBar {    
+    height:40px;
+    background-color:ghostwhite;
+    text-align:right;
+    padding-right:100px;
+    font-size:20px;
+}
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -24,9 +30,10 @@ textarea {
 
 .text-danger {
     color: red;
+    font-size:10px;
 }
 
-.input_container {
+/*.input_container {
     background-color: #ffffff;
     display: flex;
     align-items: center;
@@ -35,18 +42,18 @@ textarea {
 
     .input_container:hover {
         background-color: white;
-    }
+    }*/
 
-.input_container,
+/*.input_container,
 #input_submit {
     align-content: center;
     height: 40px;
     border-radius: 30px;
     margin-left: 15%;
     width: 70%;
-}
+}*/
 
-.input_field {
+/*.input_field {
     color: blue;
     background-color: inherit;
     width: 1000%;
@@ -72,7 +79,7 @@ textarea {
     background-color: red;
     transition: background-color, 1s;
     cursor: pointer;
-}
+}*/
 
 /*:root {
     --body_gradient_left:#7200D0;
@@ -92,72 +99,35 @@ textarea {
 }
 
 #form_wrapper {
-    width: 500px;
-    height: 550px;
-    /* this will help us center it*/
+    width: 350px;
+    height: 350px;
     margin: auto;
     color: #fff;
     background: rgba(0,0,0,0.13);
     border-radius: 50px;
-    /* make it a grid container*/
     display: grid;
-    /* with two columns of same width*/
-    /* with a small gap in between them*/
-    /*grid-gap: 5vw;*/
-    /* add some padding around */
     padding: 50px;
 }
-
-/*#form_left {
-    /* center the image */
-/*display: flex;
-    justify-content: center;
-    align-items: flex-end ;
-}
-
-#form_left img {
+#SignInForm {
     width: 350px;
-    height: 350px;
-}*/
-
-#form {
+    height: 250px;
+    margin: auto;
+    color: #fff;
+    background: rgba(0,0,0,0.13);
+    border-radius: 50px;
     display: grid;
-    align-content: stretch;
-    padding: 10% 1%;
+    padding: 50px;
 }
-
-#signUpForm {
-    display: grid;
-    align-content: stretch;
-    padding: 10% 1%;
-}
-#hotelForm {
-    display: grid;
-    align-content: stretch;
-    padding: 1% 1%;
-}
-h1,
-span {
+h1{
     text-align: center;
     color: blue;
 }
-
+.Button {
+    border:2px solid;
+    padding :2px 2px 2px 2px;
+}
 #create_account {
     display: block;
     position: relative;
     top: 30px;
-}
-
-a {
-    text-decoration: none;
-    color: red;
-    font-weight: bold;
-}
-
-    a:hover {
-        color: red;
-    }
-
-i {
-    color: red;
 }

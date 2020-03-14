@@ -1,0 +1,57 @@
+﻿@model OnlineHotelBookingApplication.Models.HotelViewModel
+@{
+    ViewBag.Title = "AddHotel";
+}
+@using (Html.BeginForm("AddHotel", "Hotel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="form_wrapper">
+        <h1>Add Hotel</h1>
+        <table>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelName, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.HotelName, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.HotelName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelAddress, htmlAttributes: new { })
+                </td>
+                <td>
+
+                    @Html.EditorFor(model => model.HotelAddress, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.HotelAddress, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Services, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Services, new { htmlAttributes = new { } })
+                    @Html.ValidationMessageFor(model => model.Services, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" id="HotelImage" name="HotelImage" />
+                </td>
+            </tr>
+            <tr>
+                <td>Uploaded Image:</td>
+                <td>
+                    <img src="@ViewBag.Image" style="width:100%;height:10%" alt="Alternate Text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}

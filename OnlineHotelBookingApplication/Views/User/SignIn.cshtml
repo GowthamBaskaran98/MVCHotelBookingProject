@@ -2,24 +2,35 @@
 @{
     ViewBag.Title = "SignIn";
 }
-<h2>SignIn</h2>
-    @Html.Partial("PartialViewExample");
 @using (Html.BeginForm("SignIn", "User", FormMethod.Post))
 {
      <div id="form_wrapper">
-            <div id="form">
-                <h1>Login</h1>
-                <div class="input_container">
-                    @*<i class="fas fa-envelope"></i>*@
-                    @Html.TextBoxFor(model => model.Gmail, new { placeholder = "Gmail ID" , @class = "input_field" })
-                </div>
-                <div class="input_container">
-                    @*<i class="fas fa-lock"></i>*@
-                    @Html.TextBoxFor(model => model.Password, "", new { placeholder = "Password", @class = "input_field" })
-                </div>
-                <input type="submit" value="Login" id='input_submit' class='input_field'>
-            </div>
-        </div>
+           <h1>SignIn</h1>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @maxlength = 25 } })
+                    @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { })
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 25 } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
+         </div>
     @*<div>
         <div>
             @Html.LabelFor(model => model.gmail, htmlAttributes: new { })
@@ -33,9 +44,6 @@
             </div>
         <div>
             <input type="button" value="Submit" />
-            @{
-                Html.RenderAction("back");
-            }
         </div>
     </div>*@
 }

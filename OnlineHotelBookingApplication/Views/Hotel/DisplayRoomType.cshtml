@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OnlineHotelBookingApplication.Models.HotelRoomCategoryViewModel>
+
+
+@if (TempData["HotelId"] != null)
+{
+    TempData.Keep("HotelId");
+}
+
+<table border="1">
+    <tr>
+        <th>Hotel Id</th>
+        <th>Room Id</th>
+        <th>Available Room</th>
+        <th>Cost</th>
+    </tr>
+    @foreach (OnlineHotelBookingApplication.Models.HotelRoomCategoryViewModel user in Model)
+    {
+        <tr>
+            <td>@user.HotelId</td>
+            <td>@user.RoomId</td>
+            <td>@user.AvailableRooms</td>
+            <td>@user.Cost</td>
+            <td>
+                @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId })
+                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId })
+            </td>
+        </tr>
+    }
+    <tr>
+        @Html.ActionLink("Add Another Room Type", "AddRoomCategory", new { code = TempData["HotelId"] })
+    </tr>
+    <tr>
+        @Html.ActionLink("SaveType", "ManageHotel")
+    </tr>
+</table>

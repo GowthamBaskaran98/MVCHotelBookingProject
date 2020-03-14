@@ -1,4 +1,5 @@
-﻿using OnlineHotelBookingApplication.App_Start;
+﻿
+using OnlineHotelBookingApplication.Models;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -10,7 +11,8 @@ namespace OnlineHotelBookingApplication
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            MapperConfig.Maps();
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
 }

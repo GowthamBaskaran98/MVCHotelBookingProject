@@ -3,81 +3,58 @@
 @{
     ViewBag.Title = "SignUp";
 }
-<h2>SignUp</h2>
 @using (Html.BeginForm("SignUp", "User", FormMethod.Post))
 {
-    <div>
-        <div>
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { })
-            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { } })
-            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
-            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { } })
-            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { })
-            @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { } })
-            @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-        </div>
-
-        <div>
-            @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
-            @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { } })
-            @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
-        </div>
-        <div>
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { })
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-        @*<div>
-            @Html.LabelFor(model => model.UserType, htmlAttributes: new { })
-            @Html.EnumDropDownListFor(model => model.UserType)
-            @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
-        </div>*@
-        <div>
-            <input type="submit" value="Submit" />
-        </div>
+    <div id="form_wrapper">
+        <h1>Register Form</h1>
+        <table>
+            <tr>
+               <td>@Html.LabelFor(model => model.FirstName, new { })</td> 
+                <td>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = 15 } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = 15 } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @maxlength = 10 } })
+                    @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @maxlength = 30 } })
+                    @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { })
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 20 } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit" />
+                </td>
+            </tr>
+        </table>
     </div>
-    @*<div style="background-image:url('https://www.google.com/url?sa=i&url=http%3A%2F%2Fgetwallpapers.com%2Fcollection%2Ffull-hd-background-images&psig=AOvVaw0JIDexm2pv-NV7prtSwKvs&ust=1582871472655000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIDQp_OO8ecCFQAAAAAdAAAAABAN')">
-            <div>
-                @Html.LabelFor(model => model.firstName, htmlAttributes: new { })<br />
-                @Html.LabelFor(model => model.lastName, htmlAttributes: new { })<br />
-                @Html.LabelFor(model => model.mobileNumber, htmlAttributes: new { })<br />
-            </div>
-            <div style="">
-                @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { } })
-                @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
-                @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { } })
-                @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
-                @Html.EditorFor(model => model.mobileNumber, new { htmlAttributes = new { } })
-                @Html.ValidationMessageFor(model => model.mobileNumber, "", new { @class = "text-danger" })
-            </div>
-            <div>
-            </div>
-            <div>
-                @Html.LabelFor(model => model.gmail, htmlAttributes: new { })
-                @Html.EditorFor(model => model.gmail, new { htmlAttributes = new { } })
-                @Html.ValidationMessageFor(model => model.gmail, "", new { @class = "text-danger" })
-            </div>
-            <div>
-                @Html.LabelFor(model => model.password, htmlAttributes: new { })
-                @Html.EditorFor(model => model.password, new { htmlAttributes = new { } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-            </div>
-            <div>
-                @Html.LabelFor(model => model.userType, htmlAttributes: new { })
-                @Html.EnumDropDownListFor(model => model.userType)
-                @Html.ValidationMessageFor(model => model.userType, "", new { @class = "text-danger" })
-            </div>
-            <div>
-                <input type="submit" value="Submit" />
-                @{
-                    Html.RenderAction("back");
-                }
-            </div>
-        </div>*@
 }

@@ -1,12 +1,12 @@
-﻿using System.Web.Mvc;
+﻿//using System.Web.Mvc;
 
-namespace OnlineHotelBookingApplication.App_Start
-{
-    public class FilterConfig
-    {
-        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
-        {
-            filters.Add(new HandleErrorAttribute());
-        }
-    }
-}
+//namespace OnlineHotelBookingApplication.App_Start
+//{
+//    public class FilterConfig
+//    {
+//        public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+//        {
+//            filters.Add(new HandleErrorAttribute());
+//        }
+//    }
+//}

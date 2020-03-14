@@ -1,0 +1,52 @@
+﻿@model OnlineHotelBookingApplication.Entity.Hotel
+@{
+    ViewBag.Title = "Edit Hotel";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("EditHotel", "Hotel", FormMethod.Post))
+{
+    <table cellpadding="10">
+        <tr>
+            <td>
+                @Html.Label("Hotel Id")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.HotelId)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Hotel Name")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.HotelName)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Hotel Address")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.HotelAddress)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("Hotel Services")
+            </td>
+            <td>
+                @Html.TextBoxFor(Model => Model.Services)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ActionLink("Cancel", "ManageHotel", "HotelDetails")
+            </td>
+            <td>
+                <input type="submit" value="Update" />
+            </td>
+        </tr>
+    </table>
+}

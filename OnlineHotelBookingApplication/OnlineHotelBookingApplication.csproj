@@ -163,14 +163,19 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\HotelController\HotelController.cs" />
+    <Compile Include="Controllers\CustomerController\CustomerController.cs" />
     <Compile Include="Controllers\ExceptionController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\HotelDetailsController.cs" />
+    <Compile Include="Controllers\LogInController\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ImageObjectViewModel.cs" />
+    <Compile Include="Models\RoomCategoryViewModel.cs" />
+    <Compile Include="Models\HotelRoomCategoryViewModel.cs" />
     <Compile Include="Models\HotelViewModel.cs" />
+    <Compile Include="Models\MapperConfig.cs" />
     <Compile Include="Models\SignInViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -189,14 +194,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\User\Portal.cshtml" />
-    <Content Include="Views\Exception\Filter.cshtml" />
-    <Content Include="Views\Admin\ManageHotel.cshtml" />
-    <Content Include="Views\Admin\ManageUser.cshtml" />
-    <Content Include="Views\Admin\AdminPage.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Hotel\ManageHotel.cshtml" />
+    <Content Include="Views\Hotel\ManageUser.cshtml" />
+    <Content Include="Views\Hotel\AdminPage.cshtml" />
     <Content Include="Views\Customer\CustomerPage.cshtml" />
-    <Content Include="Views\Admin\AddHotel.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\Delete.cshtml" />
+    <Content Include="Views\Hotel\AddHotel.cshtml" />
+    <Content Include="Views\Hotel\Edit.cshtml" />
+    <Content Include="Views\Hotel\Delete.cshtml" />
+    <Content Include="Views\Shared\Filter.cshtml" />
+    <Content Include="Views\Hotel\AddRoomCategory.cshtml" />
+    <Content Include="Views\Hotel\EditHotel.cshtml" />
+    <Content Include="Views\Hotel\DeleteHotel.cshtml" />
+    <Content Include="Views\Customer\HotelPage.cshtml" />
+    <Content Include="Views\Hotel\DisplayRoomType.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -206,6 +217,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\HotelDetails\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OnlineHotelBookingApplication.BL\OnlineHotelBookingApplication.BL.csproj">
