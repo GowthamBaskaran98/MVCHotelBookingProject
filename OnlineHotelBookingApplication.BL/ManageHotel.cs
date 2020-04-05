@@ -20,11 +20,9 @@ namespace OnlineHotelBookingApplication.BL
         bool CheckHotelName(string HotelName);
         void UpdateRoomType(HotelRoomBind hotelRoomBind);
         void DeleteRoomType(int HotelRoomId);
-        void BookHotel(BookHotel bookHotel);
         void AcceptHotel(int HotelId);
         void DeclineHotel(int HotelId);
         List<Hotel> GetHotelByName(string Gmail);
-        List<BookHotel> GetBookingDetails(string UserName);
         RoomCategory GetCategoryById(int RoomId);
         void UpdateRoomCount(int HotelRoomId);
     }
@@ -91,10 +89,6 @@ namespace OnlineHotelBookingApplication.BL
         {
             hotelRepository.DeleteRoomType(HotelRoomId);
         }
-        public void BookHotel(BookHotel bookHotel)
-        {
-            hotelRepository.BookHotel(bookHotel);
-        }
         public void AcceptHotel(int HotelId)
         {
             hotelRepository.AcceptHotel(HotelId);
@@ -102,10 +96,6 @@ namespace OnlineHotelBookingApplication.BL
         public List<Hotel> GetHotelByName(string Gmail)
         {
             return hotelRepository.GetHotelByName(Gmail);
-        }
-        public List<BookHotel> GetBookingDetails(string UserName)
-        {
-            return hotelRepository.GetBookingDetails(UserName);
         }
         public RoomCategory GetCategoryById(int RoomId)
         {

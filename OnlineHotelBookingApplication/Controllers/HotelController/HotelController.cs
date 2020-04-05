@@ -314,40 +314,6 @@ namespace OnlineHotelBookingApplication.Controllers
             hotelDetails.DeclineHotel(hotelViewModel.HotelId);
             return RedirectToAction("ManageHotel", "Hotel", new { Pending = "Pending" });
         }
-        public ActionResult BookHotel(HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
-        {
-            ViewBag.A = TempData["CheckIn"];
-            ViewBag.B = TempData["CheckOut"];
-            TempData["CheckIn"] = ViewBag.A;
-            TempData["CheckOut"] = ViewBag.B;
-            BookViewModel bookHotelViewModel = new BookViewModel();
-            bookHotelViewModel.HotelRoomId = hotelRoomCategoryViewModel.HotelRoomId;
-            bookHotelViewModel.UserId = HttpContext.User.Identity.Name;
-            return View(bookHotelViewModel);
-        }
-        [HttpPost]
-        [ActionName("BookHotel")]
-        //public ActionResult BookingHotel([Bind(Exclude = "User,HotelRoomBind")]HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
-        //{
-        //    string userName = HttpContext.User.Identity.Name;
-        //    BookHotelViewModel bookHotelViewModel = new BookHotelViewModel();
-        //    bookHotelViewModel.UserId = userName;
-        //    bookHotelViewModel.HotelRoomId = hotelRoomCategoryViewModel.HotelRoomId;
-        //    BookHotel bookHotel = AutoMapper.Mapper.Map<BookHotelViewModel, BookHotel>(bookHotelViewModel);
-        //    hotelDetails.BookHotel(bookHotel);
-        //    return RedirectToAction("ManageHotel", "Hotel");
-        //}
-        public ActionResult BookingHotel(BookViewModel bookHotelViewModel)
-        {
-            ViewBag.C = TempData["CheckIn"];
-            ViewBag.D = TempData["CheckOut"];
-            bookHotelViewModel.CheckIn = ViewBag.C;
-            bookHotelViewModel.CheckOut = ViewBag.D;
-            BookHotel bookHotel = AutoMapper.Mapper.Map<BookViewModel, BookHotel>(bookHotelViewModel);
-            hotelDetails.UpdateRoomCount(bookHotelViewModel.HotelRoomId);
-            hotelDetails.BookHotel(bookHotel);
-            return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
-        }
     }
 }
 

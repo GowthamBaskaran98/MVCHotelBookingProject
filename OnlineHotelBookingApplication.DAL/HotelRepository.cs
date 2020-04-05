@@ -23,11 +23,9 @@ namespace OnlineHotelBookingApplication.DAL
         bool CheckHotelName(string HotelName);
         void UpdateRoomType(HotelRoomBind hotelRoomBind);
         void DeleteRoomType(int HotelRoomId);
-        void BookHotel(BookHotel bookHotel);
         void AcceptHotel(int HotelId);
         void DeclineHotel(int HotelId);
         List<Hotel> GetHotelByName(string Gmail);
-        List<BookHotel> GetBookingDetails(string UserName);
         RoomCategory GetCategoryById(int RoomId);
         void UpdateRoomCount(int HotelRoomId);
     }
@@ -170,14 +168,6 @@ namespace OnlineHotelBookingApplication.DAL
                 int result = userContext.Database.ExecuteSqlCommand("sp_DeleteRoomType @HotelRoomId", HotelRoom);
             }
         }
-        public void BookHotel(BookHotel bookHotel)
-        {
-            using (UserContext userContext = new UserContext())
-            {
-                userContext.BookHotels.Add(bookHotel);
-                userContext.SaveChanges();
-            }
-        }
         public void AcceptHotel(int HotelId)
         {
             using (UserContext userContext = new UserContext())
@@ -207,14 +197,6 @@ namespace OnlineHotelBookingApplication.DAL
             {                                                                                       //Getting Image using Hotel Name
                 List<Hotel> hotel = userContext.HotelDatabases.Where(model => model.HotelOwner == Gmail).ToList();
                 return hotel;
-            }
-        }
-        public List<BookHotel> GetBookingDetails(string UserName)
-        {
-            using (UserContext userContext = new UserContext())
-            {
-                List<BookHotel> bookHotels = userContext.BookHotels.Where(model => model.UserId == UserName).ToList();
-                return bookHotels;
             }
         }
         public RoomCategory GetCategoryById(int RoomId)
