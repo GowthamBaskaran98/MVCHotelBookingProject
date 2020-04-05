@@ -1,0 +1,107 @@
+﻿@model OnlineHotelBookingApplication.Models.HotelRoomCategoryViewModel
+@{
+    ViewBag.Title = "Edit Hotel";
+}
+
+
+@using (Html.BeginForm("EditRoomType", "Hotel", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="main">
+        <h2>Edit</h2>
+        <table cellpadding="10">
+            <tr>
+                <td>
+                    @Html.Label("Hotel Id ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.HotelRoomId, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Hotel Id ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.HotelId, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RoomId)
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.RoomId, (List<SelectListItem>)ViewBag.List , "--Select List--")
+                    @Html.ValidationMessageFor(model => model.RoomId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            @*<tr>
+                <td>
+                    @Html.Label("Room Id ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.RoomId)
+                </td>
+            </tr>*@
+            <tr>
+                <td>
+                    @Html.Label("Adults Per Room ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.AdultsPerRoom, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Total Rooms ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.TotalRooms, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Booked Rooms ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.BookedRooms, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Vacant Rooms ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.VacantRooms, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Cost ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.Cost, new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" id="RoomImage" name="RoomImage" />
+                </td>
+            </tr>
+            <tr>
+                <td>Uploaded Image:</td>
+                <td>
+                    <img src="@ViewBag.Image" style="width:100%;height:10%" alt="Alternate Text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Back", "ManageHotel", "HotelDetails")
+                </td>
+                <td>
+                    <input type="submit" value="UpdateRoomType" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}

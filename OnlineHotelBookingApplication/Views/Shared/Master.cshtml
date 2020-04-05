@@ -2,49 +2,84 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../lib/w3.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Hotel Booking Application</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
     <script src="~/scripts/JavaScript.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>*@
     <div class="MasterBar">
-        @Html.ActionLink("Heaven in hand", "HomePage", "HotelBooking", new { area = "" }, new { @class = "navbar-brand" })
-        @Html.ActionLink("SignUp", "SignUp", "User", new { area = "" }, new { @class = "navbar-brand" })
-        @Html.ActionLink("SignIn", "SignIn", "User", new { area = "" }, new { @class = "navbar-brand" })
-        <br />
-        <br />
-    </div>
-            @*</div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
+        @if (HttpContext.Current.User.Identity.IsAuthenticated)
+        { }
+        else
+        {
+            @Html.ActionLink("Heaven in hand", "HomePage", "Home", new { area = "" }, new { @class = "buttons" })
+            @Html.ActionLink("SignUp", "SignUp", "User", new { area = "" }, new { @class = "buttons" })
+            @Html.ActionLink("SignIn", "SignIn", "User", new { area = "" }, new { @class = "buttons" })
+        }
+        @if (HttpContext.Current.User.IsInRole("Admin"))
+        {
+            <div class="sidenav">
+                <table>
+                    <tr>
+                        <td>
+                            <img class="profile" src="~/Images/ProfilePic.png" />
+                        </td>
+                        <td><a>Admin Login</a></td>
+                    </tr>
+                </table>
+                <a class="name">@User.Identity.Name</a>
+                <a>@Html.ActionLink("Heaven in hand", "HomePage", "Home", new { area = "" }, new { })</a>
+                <a>@Html.ActionLink("ManageUser", "ManageUser", "User", new { area = "" }, new { })</a>
+                <a>@Html.ActionLink("Approved Hotel List", "ManageHotel", "Hotel", new { Status = "Approved" }, new { })</a>
+                <a>@Html.ActionLink("Requested Hotel List", "ManageHotel", "Hotel", new { Status = "Pending" }, new { })</a>
+                <a>@Html.ActionLink("Declined Hotel List", "ManageHotel", "Hotel", new { Status = "Declined" }, new { })</a>
+                <a>@Html.ActionLink("Logout", "SignOut", "User", "", new { })</a>
             </div>
-        </div>
-    </div>*@
+        }
+        else if (HttpContext.Current.User.IsInRole("Customer"))
+        {
+            <div class="sidenav">
+                <table>
+                    <tr>
+                        <td>
+                            <img class="profile" src="~/Images/ProfilePic.png" />
+                        </td>
+                        <td><a>Customer Login</a></td>
+                    </tr>
+                </table>
+                <a class="name">@User.Identity.Name</a>
+                <a>@Html.ActionLink("Heaven in Hand", "ManageHotel", "Hotel", new { Status = "Approved" }, new { })</a>
+                <a>@Html.ActionLink("My Bookings", "MyCart", "Hotel", new { area = "" }, new { })</a>
+                <a>@Html.ActionLink("Logout", "SignOut", "User", "", new { })</a>
+            </div>
+        }
+        else if (HttpContext.Current.User.IsInRole("HotelOwner"))
+        {
+            <div class="sidenav">
+                <table>
+                    <tr>
+                        <td>
+                            <img class="profile" src="~/Images/ProfilePic.png" />
+                        </td>
+                        <td><a>Hotel Owner Login</a></td>
+                    </tr>
+                </table>
+                <a class="name">@User.Identity.Name</a>
+                <a>@Html.ActionLink("Heaven in hand", "ManageHotel", "Hotel", new { Status = "Approved" }, new { @class = "navbar-brand" })</a>
+                <a>@Html.ActionLink("My Bookings", "MyCart", "Hotel", new { area = "" }, new { @class = "navbar-brand" })</a>
+                <a>@Html.ActionLink("My Hotel", "ManageHotel", "Hotel", new { MyHotel = "MyHotel" }, new { @class = "navbar-brand" })</a>
+                <a>@Html.ActionLink("Logout", "SignOut", "User", "", new { })</a>
+            </div>
+        }
+    </div>
     <div>
-        @*<h1>ONLINE HOTEL BOOKING</h1>
-        <table>
-            <tr>
-                <td>
-                    @Html.ActionLink("SignUp", "SignUp")
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    @Html.ActionLink("SignIn", "SignIn")
-                </td>
-            </tr>
-        </table>*@
         @RenderBody()
     </div>
 </body>

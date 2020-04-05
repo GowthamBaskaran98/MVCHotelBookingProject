@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace OnlineHotelBookingApplication.Models
 {
@@ -23,14 +24,17 @@ namespace OnlineHotelBookingApplication.Models
         public string LastName { get; set; }
 
         [Required]
+        [Remote("NumberExists", "User", HttpMethod = "POST", ErrorMessage = "Mobile Number already registered.")]
         [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
         public long MobileNumber { get; set; }
 
         [Required]
-        [RegularExpression("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Enter a valid email id.")]
+        [Remote("EmailExists", "User", HttpMethod = "POST", ErrorMessage = "Email address already registered.")]
+        [RegularExpression("^[_A-Za-z0-9-478\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Enter a valid email id.")]
         public string Gmail { get; set; }
 
         [Required]
+        //[RegularExpression("^[A-Z]")]
         public string Password { get; set; }
 
         public string UserType { get; set; }

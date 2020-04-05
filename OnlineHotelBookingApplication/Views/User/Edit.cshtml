@@ -1,0 +1,79 @@
+﻿@model OnlineHotelBookingApplication.Entity.User
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
+}
+
+@using (Html.BeginForm("Update", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="main">
+        <h2>Edit</h2>
+        <table cellpadding="10">
+            <tr>
+                <td>
+                    @Html.Hidden("UserId")
+                </td>
+                <td>
+                    @Html.HiddenFor(Model => Model.UserId)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("FirstName")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.FirstName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("LastName")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.LastName)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("MobileNumber")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.MobileNumber)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Gmail")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.Gmail)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Password")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("UserType")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.UserType)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Cancel", "ManageUser", "Admin")
+                </td>
+                <td>
+                    <input type="submit" value="Update" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}

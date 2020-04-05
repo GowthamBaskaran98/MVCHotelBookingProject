@@ -1,28 +1,25 @@
-﻿using OnlineHotelBookingApplication.Entity;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
+using OnlineHotelBookingApplication.Entity;
 
 namespace OnlineHotelBookingApplication.DAL
 {
     public class UserContext : DbContext
     {
-        public DbSet<User> dataset { get; set; }
-        public DbSet<Hotel> HotelData { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Hotel> HotelDatabases { get; set; }
+        public DbSet<RoomCategory> RoomCategories { get; set; }
+        public DbSet<HotelRoomBind> HotelRooms { get; set; }
         public DbSet<ImageObject> ImageObjects { get; set; }
-        public DbSet<RoomCategory> RoomCategory { get; set; }
-        public DbSet<HotelRoomCategory> RoomCategories { get; set; }
+        public DbSet<BookHotel> BookHotels { get; set; }
+        //public DbSet<HotelRoomCategory> HotelRoomCategories { get; set; }
+        //public DbSet<HotelRoomCategory> HotelRoomCategories { get; set; }
         public UserContext() : base("ConnectionDB")
         {
 
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<HotelRoomCategory>().HasKey(sc => new { sc.HotelId });
+            modelBuilder.Entity<HotelRoomBind>().HasKey(sc => new { sc.HotelRoomId });
             modelBuilder.Entity<User>().MapToStoredProcedures(p => p.Insert(sp => sp.HasName("sp_InsertUser"))
                 .Update(sp => sp.HasName("sp_UpdateUser"))
                 .Delete(sp => sp.HasName("sp_DeleteUser"))
@@ -30,6 +27,10 @@ namespace OnlineHotelBookingApplication.DAL
             modelBuilder.Entity<Hotel>().MapToStoredProcedures(p => p.Insert(sp => sp.HasName("sp_InsertHotel"))
                  .Update(sp => sp.HasName("sp_UpdateHotel"))
                  .Delete(sp => sp.HasName("sp_DeleteHotel"))
+                 );
+            modelBuilder.Entity<HotelRoomBind>().MapToStoredProcedures(p => p.Insert(sp => sp.HasName("sp_InsertRoomType"))
+                 .Update(sp => sp.HasName("sp_UpdateRoomType"))
+                 .Delete(sp => sp.HasName("sp_DeleteRoomType"))
                  );
             base.OnModelCreating(modelBuilder);
         }

@@ -1,30 +1,90 @@
-﻿@model IEnumerable<OnlineHotelBookingApplication.Models.HotelViewModel>
+﻿@model OnlineHotelBookingApplication.Models.HotelTimingViewModel
 @{
     ViewBag.Title = "ManageHotel";
 }
+<meta charset="utf-8">
+<title>Chris Stanyon</title>
 
-<table border="1">
-    <tr>
-        <td>Hotel Id</td>
-        <td>Hotel Name</td>
-        <td>Hotel Address</td>
-        <td>Services</td>
-    </tr>
-    @foreach (OnlineHotelBookingApplication.Models.HotelViewModel user in Model)
+<link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/themes/base/minified/jquery-ui.min.css")" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
+<script>
+
+</script>
+<div class="main">
+    @using (Html.BeginForm("ManageHotel", "Hotel", FormMethod.Post))
     {
-        <tr>
-            <td>@user.HotelId</td>
-            <td>@user.HotelName</td>
-            <td>@user.HotelAddress</td>
-            <td>@user.Services</td>
-            <td>
-                @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId })
-                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { onclick = "return confirm('Do you wish to delete this data?')" })
-            </td>
-        </tr>
+        <table>
+            <tr>
+                <td>@Html.TextBox("search", null, new { @placeholder = "Name / Place"} )</td>
+                <td><button class="search">Search</button></td>
+                <td>
+                    <label for="dateFrom" style="display:block">CheckIn :</label>
+                    @Html.TextBoxFor(model => model.TimingViewModel.CheckIn, "", new { @class = "dateFrom" })
+                </td>
+                <td>
+                    <label for="dateTo" style="display:block">CheckOut :</label>
+                    @Html.TextBoxFor(model => model.TimingViewModel.CheckOut, "", new { @class = "dateTo" })
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="View Deal" />
     }
-</table>
-@using (Html.BeginForm("ManageHotel", "Hotel", FormMethod.Post))
-{
-    @Html.ActionLink("AddHotel", "AddHotel", new { @class = "Button" })
-}
+    <h1>Manage Hotel</h1>
+    @Html.ActionLink("Give Add For Your Hotel", "AddHotel", new { })
+    @foreach (OnlineHotelBookingApplication.Models.HotelViewModel user in Model.HotelViewModels)
+    {
+        <div>
+            @{
+                var base64 = Convert.ToBase64String(user.HotelImage);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+        </div>
+        <div class="row">
+            <div class="column_one">
+                <img src="@imgSrc" class="HotelImage" />
+            </div>
+            <div class="column_two">
+                <div style="font-size:50px;color:royalblue">@user.HotelName</div>
+                <hr />
+                <div>@user.Description</div>
+                <div>@user.Street</div>
+                <div>@user.City</div>
+                <div>@user.State</div>
+            </div>
+
+            <div class="column_three">
+                <div class="verticalLine">
+                    @Html.ActionLink("View Deal", "DisplayRoomType", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                    {
+                        if (user.Permission == "Approved")
+                        {
+                            <br />
+                            <br />
+                            @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                        }
+                        if (user.Permission == "Pending")
+                        {
+                            <br />
+                            <br />
+                            @Html.ActionLink("Accept", "AcceptRequest", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                            @Html.ActionLink("Decline", "DeclineRequest", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                        }
+                    }
+                    @if (User.Identity.Name == user.HotelOwner)
+                    {
+                        <br />
+                        <br />
+                        @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                        @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                    }
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+</div>

@@ -10,6 +10,6 @@ namespace OnlineHotelBookingApplication.Models
         public int RoomId { get; set; }
         [Required]
         public string RoomType { get; set; }
-        public IList<HotelRoomCategory> HotelRoomCategory { get; set; }
+        public IList<HotelRoomBind> HotelRoomCategories { get; set; }
     }
 }

@@ -1,16 +1,28 @@
 ﻿using OnlineHotelBookingApplication.DAL;
 using OnlineHotelBookingApplication.Entity;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineHotelBookingApplication.BL
 {
-    public class ManageUser
+    public interface IManageUser
     {
-        UserRepository userRepository = new UserRepository();
+        void SignUp(User user);
+        User SignIn(string mail, string password);
+        List<User> GetUserDetails();
+        void Update(User updateUser);
+        void Delete(User userView);
+        User GetDetailsById(int id);
+        bool CheckEmail(string Gmail);
+        bool CheckMobileNumber(long MobileNumber);
+    }
+    public class ManageUser : IManageUser
+    {
+        //UserRepository userRepository = new UserRepository();
+        IUserRepository userRepository;
+        public ManageUser()
+        {
+            userRepository = new UserRepository();
+        }
         public void SignUp(User user)
         {
             userRepository.SignUp(user);
@@ -34,6 +46,14 @@ namespace OnlineHotelBookingApplication.BL
         public User GetDetailsById(int id)
         {
             return userRepository.GetDetailsById(id);
+        }
+        public bool CheckEmail(string Gmail)
+        {
+            return userRepository.CheckEmail(Gmail);
+        }
+        public bool CheckMobileNumber(long MobileNumber)
+        {
+            return userRepository.CheckMobileNumber(MobileNumber);
         }
     }
 }

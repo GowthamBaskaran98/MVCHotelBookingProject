@@ -17,21 +17,21 @@ namespace OnlineHotelBookingApplication.Entity
 
         [Required(ErrorMessage = "First Name is required.")]
         [MaxLength(30)]
-        //[RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string FirstName { get; set; }
 
         [Required(ErrorMessage = "Last Name is required.")]
         [MaxLength(30)]
-        //[RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets and Numbers allowed.")]
         public string LastName { get; set; }
 
         [Required(ErrorMessage = "Mobile Number is required.")]
-        //[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
-        //[Index(IsUnique = true)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Invalid Phone number")]
+        [Index(IsUnique = true)]
         public long MobileNumber { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
-        //[RegularExpression("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Enter a valid email id.")]
+        [RegularExpression("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$", ErrorMessage = "Enter a valid email id.")]
         public string Gmail { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]

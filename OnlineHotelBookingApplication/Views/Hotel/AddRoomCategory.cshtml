@@ -1,49 +1,120 @@
-﻿@model OnlineHotelBookingApplication.Models.HotelRoomCategoryViewModel
+﻿@model OnlineHotelBookingApplication.Models.RoomViewModel
+@{
+    ViewBag.Title = "AddHotelRoomCategory";
+}
 
-@using (Html.BeginForm("AddRoomCategory", "HotelDetails", FormMethod.Post))
+@using (Html.BeginForm("AddRoomCategory", "Hotel", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <table>
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.HotelId)
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model.HotelId)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.RoomId)
-            </td>
-            <td>
-                @Html.DropDownListFor(model => model.RoomId, (List<SelectListItem>)ViewBag.List, "--Select List--")
-                @*@Html.ListBoxFor(model => model.RoomCategory, (IEnumerable<SelectListItem>)ViewBag.RoomCategory)*@
-                @*@Html.DropDownListFor(m=>m.RoomCategory , new SelectList(Model.RoomCategory, "RoomId", "RoomType"), " ")*@
-                @Html.ValidationMessageFor(model => model.RoomId, "", new { @class = "text-danger" })
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.AvailableRooms)
-            </td>
-            <td>
-                @Html.TextBoxFor(model => model.AvailableRooms)
-                @Html.ValidationMessageFor(model => model.AvailableRooms)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.LabelFor(model => model.Cost)
-            </td>
-            <td>
-                @Html.TextBoxFor(model => Model.Cost)
-                @Html.ValidationMessageFor(model => model.Cost)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" value="Add RoomType" />
-            </td>
-        </tr>
-    </table>
+    @Html.AntiForgeryToken()
+    <div class="main">
+        <h1>Added Room Details</h1>
+        <table border="1">
+            <tr>
+                <td>HotelRoomId</td>
+                <td>Hotel Id</td>
+                <td>RoomId</td>
+                <td>Adults per Room</td>s
+                <td>Available Rooms</td>
+                <td>Cost</td>
+            </tr>
+            @foreach (OnlineHotelBookingApplication.Models.HotelRoomCategoryViewModel user in Model.HotelRoomCategoryViewModels)
+            {
+                <tr>
+                    <td>@user.HotelRoomId</td>
+                    <td>@user.HotelId</td>
+                    <td>@user.RoomId</td>
+                    <td>@user.AdultsPerRoom</td>
+                    <td>@user.TotalRooms</td>
+                    <td>@user.BookedRooms</td>
+                    <td>@user.VacantRooms</td>
+                    <td>@user.Cost</td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditRoomType", new { HotelId = user.HotelId })
+                        @Html.ActionLink("Delete", "DeleteRoomType", new { HotelId = user.HotelId }, new { onclick = "return confirm('Do you wish to delete this data?')" })
+                    </td>
+                </tr>
+            }
+        </table>
+        <table>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(model => model.HotelRoomCategoryViewModel.HotelId)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.HotelId)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.RoomId)
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.HotelRoomCategoryViewModel.RoomId, (List<SelectListItem>)ViewBag.List, "--Select List--")
+                    @*@Html.ListBoxFor(model => model.RoomCategory, (IEnumerable<SelectListItem>)ViewBag.RoomCategory)*@
+                    @*@Html.DropDownListFor(m=>m.RoomCategory , new SelectList(Model.RoomCategory, "RoomId", "RoomType"), " ")*@
+                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.RoomId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.AdultsPerRoom)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.AdultsPerRoom)
+                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.AdultsPerRoom)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.TotalRooms)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.TotalRooms)
+                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.TotalRooms)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.BookedRooms)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.BookedRooms)
+                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.BookedRooms)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.VacantRooms)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.VacantRooms)
+                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.VacantRooms)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.Cost)
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => Model.HotelRoomCategoryViewModel.Cost)
+                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.Cost)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="file" id="RoomImages" name="RoomImages" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Add RoomType" name="Submit"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Save" name="Save"/>
+                </td>
+            </tr>
+        </table>    
+    </div>
 }

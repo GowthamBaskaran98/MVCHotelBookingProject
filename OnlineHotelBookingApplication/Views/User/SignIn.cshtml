@@ -4,6 +4,7 @@
 }
 @using (Html.BeginForm("SignIn", "User", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
      <div id="form_wrapper">
            <h1>SignIn</h1>
         <table>
@@ -12,7 +13,7 @@
                     @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @maxlength = 25 } })
+                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "textBox", @maxlength = 25 } })
                     @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -20,7 +21,7 @@
                 <td>
                     @Html.LabelFor(model => model.Password, htmlAttributes: new { })
                 <td>
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 25 } })
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "textBox", @maxlength = 25 } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </td>
             </tr>

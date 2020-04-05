@@ -1,22 +1,19 @@
 ﻿body {
-    background-image: url('/Images/HotelImage.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    background-color: #ceccc7;
     background-attachment: fixed;
-    
-    /* make the body full height*/
-    /* set our custom font */
-    /* create a linear gradient*/
-    /* display: flex;*/
 }
-.MasterBar {    
-    height:40px;
-    background-color:ghostwhite;
-    text-align:right;
-    padding-right:100px;
-    font-size:20px;
+
+.MasterBar {
+    height: 40px;
+    background-color: ghostwhite;
+    text-align: right;
+    padding-right: 100px;
+    font-size: 20px;
 }
+
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -30,67 +27,8 @@ textarea {
 
 .text-danger {
     color: red;
-    font-size:10px;
+    font-size: 10px;
 }
-
-/*.input_container {
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    padding-left: 20px;
-}
-
-    .input_container:hover {
-        background-color: white;
-    }*/
-
-/*.input_container,
-#input_submit {
-    align-content: center;
-    height: 40px;
-    border-radius: 30px;
-    margin-left: 15%;
-    width: 70%;
-}*/
-
-/*.input_field {
-    color: blue;
-    background-color: inherit;
-    width: 1000%;
-    border: none;
-    font-size: 1.3rem;
-    padding-left: 30px;
-}
-
- .input_field:hover,
- .input_field:focus {
-    outline: none;
- }
-
-#input_submit {
-    background-color: wheat;
-    padding-left: 0;
-    font-weight: bold;
-    color: blue;
-    text-transform: uppercase;
-}
-
-#input_submit:hover {
-    background-color: red;
-    transition: background-color, 1s;
-    cursor: pointer;
-}*/
-
-/*:root {
-    --body_gradient_left:#7200D0;
-    --body_gradient_right: #C800C1;
-    --form_bg: #ffffff;
-    --input_bg: #E5E5E5;
-    --input_hover:#eaeaea;
-    --submit_bg: #1FCC44;
-    --submit_hover: #40e263;
-    --icon_color:#6b6b6b;
-}*/
 
 * {
     padding: 0;
@@ -98,16 +36,29 @@ textarea {
     box-sizing: border-box;
 }
 
+
 #form_wrapper {
-    width: 350px;
-    height: 350px;
+    width: 450px;
+    height: auto;
     margin: auto;
     color: #fff;
     background: rgba(0,0,0,0.13);
     border-radius: 50px;
-    display: grid;
+    display: block;
     padding: 50px;
 }
+
+#form_wrapper_hotel {
+    width: 550px;
+    height: auto;
+    margin: auto;
+    color: #fff;
+    background: rgba(0,0,0,0.13);
+    border-radius: 50px;
+    display: block;
+    padding: 50px;
+}
+
 #SignInForm {
     width: 350px;
     height: 250px;
@@ -118,16 +69,212 @@ textarea {
     display: grid;
     padding: 50px;
 }
-h1{
+
+h1 {
     text-align: center;
     color: blue;
 }
+
 .Button {
-    border:2px solid;
-    padding :2px 2px 2px 2px;
+    border: 2px solid;
+    padding: 2px 2px 2px 2px;
 }
+    
 #create_account {
     display: block;
     position: relative;
     top: 30px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 15%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+    .sidenav a, .dropdown-btn {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        color: #818181;
+        display: block;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+        .sidenav a:hover, .dropdown-btn:hover {
+            color: #f1f1f1;
+        }
+
+.main {
+    font-size: 20px;
+    padding: 0px 10px;
+    width: 60%;
+    margin: auto;
+}
+
+.subPages {
+    font-size: 20px;
+    padding: 0px 10px;
+    width: 60%;
+    bottom: 10%;
+    margin: auto;
+}
+
+.buttons {
+    color: white;
+    text-decoration: none;
+    background-color: blue;
+    padding: 5px 5px 5px 5px;
+}
+
+.active {
+    background-color: green;
+    color: white;
+}
+
+.dropdown-container {
+    display: none;
+    background-color: #262626;
+    padding-left: 8px;
+}
+
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+}
+
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+    }
+
+        .sidenav a {
+            font-size: 15px;
+        }
+}
+
+.myButton {
+    box-shadow: inset 0px 1px 0px 0px #f29c93;
+    background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    background-color: #fe1a00;
+    border-radius: 6px;
+    border: 1px solid #d83526;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #b23e35;
+}
+
+    .myButton:hover {
+        background: linear-gradient(to bottom, #ce0100 5%, #fe1a00 100%);
+        background-color: #ce0100;
+    }
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+    }
+
+input[type=submit] {
+    box-shadow: inset 0px 1px 0px 0px #f29c93;
+    background: linear-gradient(to bottom, #fe1a00 5%, #ce0100 100%);
+    background-color: #fe1a00;
+    border-radius: 6px;
+    border: 1px solid #d83526;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 6px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #b23e35;
+}
+
+.profile {
+    height: 10%;
+    width: 55%;
+    margin-right:0110%;
+}
+
+.column_one {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 220px; 
+    background-color: #ffffff;
+    border: 1px thin black;
+}
+
+.column_two {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 220px; 
+    background-color: #ffffff;
+    border: 1px thin black;
+}
+
+.column_three {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+    height: 220px;
+    background-color: #ffffff;
+    box-shadow: 1px 2px unset;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    width: 500px;
+}
+
+.HotelImage {
+    height: 100%;
+    width: 100%;
+}
+
+.verticalLine {
+    border-left: 1px solid grey;
+    height: 200px;
+    left: 50%;
+    margin-left: -3px;
+    top: 0;
+}
+
+.textBox {
+    width: 100%;
+    height: 25px;
+    background-color: #F0F0F0;
+    border: 1px solid black;
 }

@@ -1,28 +1,34 @@
 ﻿@model IEnumerable<OnlineHotelBookingApplication.Models.HotelViewModel>
-
-<table border="1">
-    <tr>
-        <td>HotelId</td>
-        <td>Hotel Name</td>
-        <td>Hotel Address</td>
-        <td>Services</td>
-    </tr>
-    @foreach (OnlineHotelBookingApplication.Models.HotelViewModel user in Model)
-    {
+@{
+    ViewBag.Title = "AddHotelRoomCategory";
+}
+<div class="main">
+    <table border="1">
         <tr>
-            <td style="color:blue;font-size:larger">@user.HotelName</td>
+            <td>HotelId</td>
+            <td>Hotel Name</td>
+            <td>Hotel Address</td>
+            <td>Services</td>
         </tr>
-        <tr>
-            <td>@user.HotelId</td>
-            <td>@user.HotelName</td>
-            <td>@user.HotelAddress</td>
-            <td>@user.Services</td>
-        </tr>
-        <tr>
-            <td>
-                @Html.ActionLink("ViewDeal", "DisplayRoomType", "Hotel", new { HotelId = user.HotelId },"")
-                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId })
-            </td>
-        </tr>
-    }
-</table>        
+        @foreach (OnlineHotelBookingApplication.Models.HotelViewModel user in Model)
+        {
+            <tr>
+                <td style="color:blue;font-size:larger">@user.HotelName</td>
+            </tr>
+            <tr>
+                <td>@user.HotelId</td>
+                <td>@user.HotelName</td>
+                <td>@user.Description</td>
+                <td>@user.Street</td>
+                <td>@user.City</td>
+                <td>@user.State</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("ViewDeal", "DisplayRoomType", "Hotel", new { HotelId = user.HotelId }, "")
+                    @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

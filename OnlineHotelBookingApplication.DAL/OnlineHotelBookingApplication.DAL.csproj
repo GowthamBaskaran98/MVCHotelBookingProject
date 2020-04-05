@@ -64,29 +64,41 @@
   <ItemGroup>
     <Compile Include="DbUtil.cs" />
     <Compile Include="HotelRepository.cs" />
-    <Compile Include="Migrations\202003120629337_updates.cs" />
-    <Compile Include="Migrations\202003120629337_updates.designer.cs">
-      <DependentUpon>202003120629337_updates.cs</DependentUpon>
+    <Compile Include="Migrations\202003210644250_datas.cs" />
+    <Compile Include="Migrations\202003210644250_datas.designer.cs">
+      <DependentUpon>202003210644250_datas.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003130844240_da.cs" />
-    <Compile Include="Migrations\202003130844240_da.designer.cs">
-      <DependentUpon>202003130844240_da.cs</DependentUpon>
+    <Compile Include="Migrations\202003210657366_datass.cs" />
+    <Compile Include="Migrations\202003210657366_datass.designer.cs">
+      <DependentUpon>202003210657366_datass.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003130858159_daa.cs" />
-    <Compile Include="Migrations\202003130858159_daa.designer.cs">
-      <DependentUpon>202003130858159_daa.cs</DependentUpon>
+    <Compile Include="Migrations\202003221836049_v.cs" />
+    <Compile Include="Migrations\202003221836049_v.designer.cs">
+      <DependentUpon>202003221836049_v.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003140439209_image.cs" />
-    <Compile Include="Migrations\202003140439209_image.designer.cs">
-      <DependentUpon>202003140439209_image.cs</DependentUpon>
+    <Compile Include="Migrations\202003230656415_d.cs" />
+    <Compile Include="Migrations\202003230656415_d.designer.cs">
+      <DependentUpon>202003230656415_d.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003140454157_images.cs" />
-    <Compile Include="Migrations\202003140454157_images.designer.cs">
-      <DependentUpon>202003140454157_images.cs</DependentUpon>
+    <Compile Include="Migrations\202003230720478_d1.cs" />
+    <Compile Include="Migrations\202003230720478_d1.designer.cs">
+      <DependentUpon>202003230720478_d1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003140556227_imageSetter.cs" />
-    <Compile Include="Migrations\202003140556227_imageSetter.designer.cs">
-      <DependentUpon>202003140556227_imageSetter.cs</DependentUpon>
+    <Compile Include="Migrations\202003251322389_BP.cs" />
+    <Compile Include="Migrations\202003251322389_BP.designer.cs">
+      <DependentUpon>202003251322389_BP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003251352027_BPs.cs" />
+    <Compile Include="Migrations\202003251352027_BPs.designer.cs">
+      <DependentUpon>202003251352027_BPs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003261511481_Ba.cs" />
+    <Compile Include="Migrations\202003261511481_Ba.designer.cs">
+      <DependentUpon>202003261511481_Ba.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003310736520_bind.cs" />
+    <Compile Include="Migrations\202003310736520_bind.designer.cs">
+      <DependentUpon>202003310736520_bind.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,23 +116,32 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003120629337_updates.resx">
-      <DependentUpon>202003120629337_updates.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003210644250_datas.resx">
+      <DependentUpon>202003210644250_datas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003130844240_da.resx">
-      <DependentUpon>202003130844240_da.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003210657366_datass.resx">
+      <DependentUpon>202003210657366_datass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003130858159_daa.resx">
-      <DependentUpon>202003130858159_daa.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003221836049_v.resx">
+      <DependentUpon>202003221836049_v.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003140439209_image.resx">
-      <DependentUpon>202003140439209_image.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003230656415_d.resx">
+      <DependentUpon>202003230656415_d.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003140454157_images.resx">
-      <DependentUpon>202003140454157_images.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003230720478_d1.resx">
+      <DependentUpon>202003230720478_d1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003140556227_imageSetter.resx">
-      <DependentUpon>202003140556227_imageSetter.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202003251322389_BP.resx">
+      <DependentUpon>202003251322389_BP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003251352027_BPs.resx">
+      <DependentUpon>202003251352027_BPs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003261511481_Ba.resx">
+      <DependentUpon>202003261511481_Ba.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003310736520_bind.resx">
+      <DependentUpon>202003310736520_bind.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

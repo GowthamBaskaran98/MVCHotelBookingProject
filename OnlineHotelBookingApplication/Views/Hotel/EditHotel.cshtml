@@ -3,50 +3,86 @@
     ViewBag.Title = "Edit Hotel";
 }
 
-<h2>Edit</h2>
 
 @using (Html.BeginForm("EditHotel", "Hotel", FormMethod.Post))
 {
-    <table cellpadding="10">
-        <tr>
-            <td>
-                @Html.Label("Hotel Id")
-            </td>
-            <td>
-                @Html.TextBoxFor(Model => Model.HotelId)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Hotel Name")
-            </td>
-            <td>
-                @Html.TextBoxFor(Model => Model.HotelName)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Hotel Address")
-            </td>
-            <td>
-                @Html.TextBoxFor(Model => Model.HotelAddress)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.Label("Hotel Services")
-            </td>
-            <td>
-                @Html.TextBoxFor(Model => Model.Services)
-            </td>
-        </tr>
-        <tr>
-            <td>
-                @Html.ActionLink("Cancel", "ManageHotel", "HotelDetails")
-            </td>
-            <td>
-                <input type="submit" value="Update" />
-            </td>
-        </tr>
-    </table>
+    @Html.AntiForgeryToken()
+    <div class="subPages">
+        <h2>Edit Hotel Details</h2>
+        <table cellpadding="10">
+            <tr>
+                <td>
+                    @Html.Label("Hotel Id ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.HotelId, "", new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Hotel Name ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.HotelName, "", new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Description ")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.Description, "", new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Street")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.Street, "", new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("City")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.City, "", new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("State")
+                </td>
+                <td>
+                    @Html.TextBoxFor(Model => Model.State, "", new { @class = "textBox" })
+                </td>
+            </tr>
+            <tr>
+                <td>Uploaded Image:</td>
+                <td>
+                    <div class="HotelImage">
+                        <img src="@ViewBag.Image" alt="Alternate Text" />
+                        @Html.HiddenFor(Model => Model.HotelImage)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                @*<td>
+                    @Html.Label("Uploaded Time")
+                </td>*@
+                <td>
+                    @Html.HiddenFor(Model => Model.UploadDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ActionLink("Cancel", "ManageHotel", "HotelDetails")
+                </td>
+                <td>
+                    <input type="submit" value="Update" />
+                </td>
+            </tr>
+        </table>
+    </div>
 }

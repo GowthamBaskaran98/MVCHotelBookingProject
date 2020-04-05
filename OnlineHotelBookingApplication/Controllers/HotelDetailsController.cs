@@ -35,7 +35,7 @@ namespace OnlineHotelBookingApplication.Controllers
             }
             if (ModelState.IsValid)
             {
-                HotelRoomCategory hotel = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomCategory>(hotelRoomCategory);
+                HotelRoomBind hotel = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(hotelRoomCategory);
                 hotelDetails.AddRoomCategoryForHotel(hotel);
                 return RedirectToAction("ManageHotel", "Admin");
             }
@@ -66,24 +66,11 @@ namespace OnlineHotelBookingApplication.Controllers
         //}
         public ActionResult ManageHotel()
         {
-            List<Hotel> list = hotelDetails.GetHotelDetails();
-            List<HotelViewModel> hotelList = new List<HotelViewModel>();
-            foreach (Hotel detail in list)
-            {
-                HotelViewModel hotelViewModel = new HotelViewModel
-                {
-                    HotelId = detail.HotelId,
-                    HotelName = detail.HotelName,
-                    HotelAddress = detail.HotelAddress,
-                    Services = detail.Services,
-                };
-                hotelList.Add(hotelViewModel);
-            }
-            return View(hotelList);
+            return View();
         }
         public ActionResult AddHotel()
         {
-            ViewBag.RoomCategory = new SelectList(HotelRepository.GetCategories(), "RoomId", "RoomType");
+            ViewBag.RoomCategory = new SelectList(hotelDetails.GetCategory(), "RoomId", "RoomType");
             return View();
         }
         [HttpPost]

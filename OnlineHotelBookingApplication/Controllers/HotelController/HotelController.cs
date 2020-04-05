@@ -1,203 +1,236 @@
-﻿using System.Web.Mvc;
-using OnlineHotelBookingApplication.Entity;
+﻿using System;
+using System.IO;
+using System.Web.Mvc;
 using System.Collections.Generic;
-using OnlineHotelBookingApplication.Models;
 using OnlineHotelBookingApplication.BL;
 using OnlineHotelBookingApplication.DAL;
-using System.Web;
-using System;
-using System.IO;
+using OnlineHotelBookingApplication.Entity;
+using OnlineHotelBookingApplication.Models;
+using OnlineHotelBookingApplication.App_Start;
+using System.Linq;
 
 namespace OnlineHotelBookingApplication.Controllers
 {
+    [CustomExceptionFilter]
     public class HotelController : Controller
     {
-        ManageUser userDetails = new ManageUser();
+        IManageHotel hotelDetails;
+        public HotelController()
+        {
+            hotelDetails = new ManageHotel();
+        }
         public ActionResult AdminPage()
         {
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AdminPage(HotelViewModel hotelViewModel)
         {
-            return RedirectToAction("ManageHotel","Hotel");
-        }
-        public ActionResult ManageUser()
-        {
-            List<User> list = userDetails.GetUserDetails();
-            List<UserViewModel> userList = new List<UserViewModel>();
-            foreach (User detail in list)
-            {
-                UserViewModel userViewModel = new UserViewModel
-                {
-                    UserId = detail.UserId,
-                    FirstName = detail.FirstName,
-                    LastName = detail.LastName,
-                    MobileNumber = detail.MobileNumber,
-                    Gmail = detail.Gmail,
-                    Password = detail.Password,
-                    UserType = detail.UserType
-                };
-                userList.Add(userViewModel);
-            }
-            return View(userList);
-        }
-        [HttpGet]
-        public ActionResult Edit(UserViewModel userViewModel)
-        {
-            User user = AutoMapper.Mapper.Map<UserViewModel, User>(userViewModel);
-            User userView = userDetails.GetDetailsById(user.UserId);
-            return View(userView);
+            return RedirectToAction("ManageHotel", "Hotel");
         }
         [HttpPost]
-        public ActionResult Update(UserViewModel userViewModel)
+        public JsonResult Search(string Prefix)
         {
-            User user = AutoMapper.Mapper.Map<UserViewModel, User>(userViewModel);
-            userDetails.Update(user);
-            return RedirectToAction("ManageUser", "Hotel");
+            //Note : you can bind same list from database  
+            List<Hotel> hotelList = hotelDetails.GetHotelDetails("Approved");
+            //Searching records from list using LINQ query  
+            var HotelList = (from N in hotelList where N.HotelName.StartsWith(Prefix) select new { N.HotelName });
+            return Json(HotelList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult Delete(UserViewModel userViewModel)
-        {
-            UserContext userContext = new UserContext();
-            User user = AutoMapper.Mapper.Map<UserViewModel, User>(userViewModel);
-            User userView = userDetails.GetDetailsById(user.UserId);
-            userDetails.Delete(userView);
-            return RedirectToAction("ManageUser", "Hotel");
-        }
-        //
-        ManageHotel hotelDetails = new ManageHotel();
-        // GET: HotelDetails
         public ActionResult AddRoomCategory()
         {
             HotelRoomCategoryViewModel category = new HotelRoomCategoryViewModel();
             category.HotelId = (int)TempData["HotelId"];
             List<RoomCategory> roomCategory = hotelDetails.GetCategory();
             List<SelectListItem> categoryList = new List<SelectListItem>();
-            foreach (RoomCategory detail in roomCategory)
+            foreach (RoomCategory detail in roomCategory)                           //For Getting list of Categories
             {
-                categoryList.Add(new SelectListItem { Text = @detail.RoomType, Value = @detail.RoomId.ToString()});
+                categoryList.Add(new SelectListItem { Text = @detail.RoomType, Value = @detail.RoomId.ToString() });
             }
-            ViewBag.list = categoryList;
-            return View(category);
+            ViewBag.list = categoryList;    
+            List<HotelRoomBind> list = hotelDetails.GetRoomCategoryDetails(category.HotelId);
+            List<HotelRoomCategoryViewModel> hotelRoomList = new List<HotelRoomCategoryViewModel>();
+            foreach (HotelRoomBind detail in list)
+            {
+                HotelRoomCategoryViewModel hotelRoomCategoryViewModel = AutoMapper.Mapper.Map<HotelRoomBind, HotelRoomCategoryViewModel>(detail);
+                hotelRoomList.Add(hotelRoomCategoryViewModel);
+            }
+            RoomViewModel roomViewModel = new RoomViewModel();
+            roomViewModel.HotelRoomCategoryViewModel = category;
+            roomViewModel.HotelRoomCategoryViewModels = hotelRoomList;
+            //return View(hotelViewModel);
+            return View(roomViewModel);
         }
         [HttpPost]
-        public ActionResult AddRoomCategory(HotelRoomCategoryViewModel hotelRoomCategory)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddRoomCategory(RoomViewModel roomViewModel, HotelRoomCategoryViewModel hotelRoomCategoryViewModel, string Save)
         {
+            Byte[] bytes = null;
+            if (roomViewModel.HotelRoomCategoryViewModel.RoomImages.FileName != null)
+            {
+                Stream fs = roomViewModel.HotelRoomCategoryViewModel.RoomImages.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                bytes = br.ReadBytes((Int32)fs.Length);
+                roomViewModel.HotelRoomCategoryViewModel.RoomImage = bytes;
+                roomViewModel.HotelRoomCategoryViewModel.UploadDate = DateTime.Now;
+            }
+            TempData["HotelId"] = roomViewModel.HotelRoomCategoryViewModel.HotelId;
             List<RoomCategory> list = hotelDetails.GetCategory();
             List<SelectListItem> categoryList = new List<SelectListItem>();
             foreach (RoomCategory details in list)
             {
                 categoryList.Add(new SelectListItem { Text = @details.RoomType, Value = @details.RoomId.ToString() });
             }
+            ViewBag.List = categoryList;
             if (ModelState.IsValid)
             {
-                HotelRoomCategory hotel = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomCategory>(hotelRoomCategory);
-                hotelDetails.AddRoomCategoryForHotel(hotel);
+                HotelRoomBind hotel = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(roomViewModel.HotelRoomCategoryViewModel);
+                hotelDetails.AddRoomCategoryForHotel(hotel);                                            //Adding RoomCategories
                 TempData["HotelId"] = hotel.HotelId;
-                return RedirectToAction("ManageHotel", "Hotel");
+                if (Save != null)
+                {
+                    if (User.IsInRole("Admin"))
+                        return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
+                    else
+                        return RedirectToAction("ManageHotel", "Hotel", new { MyHotel = "MyHotel" });
+                }
+                return RedirectToAction("AddRoomCategory", "Hotel");
             }
-            //ViewBag.RoomCategory = new SelectList(HotelRepository.GetCategories(), "RoomId", "RoomType");
-            return View();
+            if (Save != null)
+            {
+                if (User.IsInRole("Admin"))
+                    return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
+                else
+                    return RedirectToAction("ManageHotel", "Hotel", new { MyHotel = "MyHotel" });
+            }
+            return View(roomViewModel);
         }
-
-        //public ActionResult ManageUser()
-        //{
-        //    Details details = new Details();
-        //    List<User> list = details.GetUserDetails();
-        //    List<UserViewModel> userList = new List<UserViewModel>();
-        //    foreach (User detail in list)
-        //    {
-        //        UserViewModel userViewModel = new UserViewModel
-        //        {
-        //            UserId = detail.UserId,
-        //            FirstName = detail.FirstName,
-        //            LastName = detail.LastName,
-        //            MobileNumber = detail.MobileNumber,
-        //            Gmail = detail.Gmail,
-        //            Password = detail.Password,
-        //            UserType = detail.UserType
-        //        };
-        //        userList.Add(userViewModel);
-        //    }
-        //    return View(userList);
-        //}
-        public ActionResult ManageHotel()
+        public ActionResult ManageHotel(string Status, string Approved, string Pending, string MyHotel, string Declined)
         {
-            List<Hotel> list = hotelDetails.GetHotelDetails();
+            List<Hotel> list = new List<Hotel>();
+            list = hotelDetails.GetHotelDetails(Status);
+            if (Approved != null)
+                list = hotelDetails.GetHotelDetails(Approved);
+            if (Pending != null)
+                list = hotelDetails.GetHotelDetails(Pending);
+            if (Pending != null)
+                list = hotelDetails.GetHotelDetails(Status);
+            if (MyHotel != null)
+                list = hotelDetails.GetHotelByName(User.Identity.Name);
             List<HotelViewModel> hotelList = new List<HotelViewModel>();
             foreach (Hotel detail in list)
             {
-                HotelViewModel hotelViewModel = new HotelViewModel
-                {
-                    HotelId = detail.HotelId,
-                    HotelName = detail.HotelName,
-                    HotelAddress = detail.HotelAddress,
-                    Services = detail.Services,
-                };
-                hotelList.Add(hotelViewModel);
+                //HotelViewModel hotelViewModel = new HotelViewModel
+                //{
+                //    HotelId = detail.HotelId,
+                //    HotelName = detail.HotelName,
+                //    Description = detail.Description,
+                //    Street = detail.Street,
+                //    City = detail.City,
+                //    State = detail.State,
+                //};
+                HotelViewModel hotelViewModel = AutoMapper.Mapper.Map<Hotel, HotelViewModel>(detail);
+                hotelList.Add(hotelViewModel);                                                          //Displaying Hotel Details          
             }
-            return View(hotelList);
+            TimingViewModel timing = new TimingViewModel();
+            HotelTimingViewModel hotelTimingViewModel = new HotelTimingViewModel();
+            hotelTimingViewModel.HotelViewModels = hotelList;
+            hotelTimingViewModel.TimingViewModel = timing;
+            return View(hotelTimingViewModel);
         }
-        public ActionResult DisplayRoomType(int HotelId)
+        [HttpPost]
+        public ActionResult ManageHotel(HotelTimingViewModel hotelTimingViewModel, string Status)
         {
-            List<HotelRoomCategory> list = hotelDetails.GetRoomCategoryDetails(HotelId);
-            List<HotelRoomCategoryViewModel> hotelList = new List<HotelRoomCategoryViewModel>();
-            foreach (HotelRoomCategory detail in list)
+            TempData["CheckIn"] = hotelTimingViewModel.TimingViewModel.CheckIn;
+            TempData["CheckOut"] = hotelTimingViewModel.TimingViewModel.CheckOut;
+            TempData.Keep();
+            List<Hotel> list = hotelDetails.GetHotelDetails(Status);
+            List<HotelViewModel> hotelList = new List<HotelViewModel>();
+            foreach (Hotel detail in list)
             {
-                HotelRoomCategoryViewModel hotelRoomCategoryViewModel = new HotelRoomCategoryViewModel
-                {
-                    HotelId = detail.HotelId,
-                    RoomId = detail.RoomId,
-                    AvailableRooms = detail.AvailableRooms,
-                    Cost = detail.Cost,
-                };
-                hotelList.Add(hotelRoomCategoryViewModel);
+                HotelViewModel hotelViewModel = AutoMapper.Mapper.Map<Hotel, HotelViewModel>(detail);
+                hotelList.Add(hotelViewModel);                                                          //Displaying Hotel Details          
             }
+            TimingViewModel timing = new TimingViewModel();
+            hotelTimingViewModel.HotelViewModels = hotelList;
+            hotelTimingViewModel.TimingViewModel = timing;
+            return View(hotelTimingViewModel);
+        }
+        public ActionResult DisplayRoomType(HotelViewModel hotelViewModel)
+        {
+            HotelTimingViewModel hotelTimingViewModel = new HotelTimingViewModel();
+            ViewBag.CheckIn = TempData["CheckIn"];
+            ViewBag.CheckOut = TempData["CheckOut"];    
+            TempData["HotelId"] = hotelViewModel.HotelId;
+            Hotel hotel = hotelDetails.GetHotelDetailsById(hotelViewModel.HotelId);
+            hotelViewModel = AutoMapper.Mapper.Map<Hotel, HotelViewModel>(hotel);
+            List<HotelRoomBind> list = hotelDetails.GetRoomCategoryDetails(hotelViewModel.HotelId);
+            List<HotelRoomCategoryViewModel> hotelList = new List<HotelRoomCategoryViewModel>();
+            foreach (HotelRoomBind detail in list)
+            {
+                HotelRoomCategoryViewModel hotelRoomCategoryViewModel = AutoMapper.Mapper.Map<HotelRoomBind, HotelRoomCategoryViewModel>(detail);
+                hotelList.Add(hotelRoomCategoryViewModel);                                              //Displaying Room Categories
+            }
+            TempData["CheckIn"] = ViewBag.CheckIn;
+            TempData["CheckOut"] = ViewBag.CheckOut;
             return View(hotelList);
         }
         public ActionResult AddHotel()
         {
-            ViewBag.RoomCategory = new SelectList(HotelRepository.GetCategories(), "RoomId", "RoomType");
-            return View();
+            List<RoomCategory> roomCategory = hotelDetails.GetCategory();
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            foreach (RoomCategory detail in roomCategory)
+            {
+                categoryList.Add(new SelectListItem { Text = @detail.RoomType, Value = @detail.RoomId.ToString() });
+            }   
+            ViewBag.List = categoryList;
+            ViewBag.RoomCategory = new SelectList(hotelDetails.GetCategory(), "RoomId", "RoomType");
+            HotelViewModel hotelViewModel = new HotelViewModel();
+            hotelViewModel.HotelOwner = User.Identity.Name;
+            return View(hotelViewModel);
         }
         [HttpPost]
-        public ActionResult AddHotel(HotelViewModel hotelViewModel)
+        [ValidateAntiForgeryToken]
+        public ActionResult AddHotel(HotelViewModel hotelViewModel, string Image)
         {
+            Byte[] bytes = null;
+            if (hotelViewModel.HotelImages.FileName != null)
+            {
+                Stream fs = hotelViewModel.HotelImages.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                bytes = br.ReadBytes((Int32)fs.Length);
+                hotelViewModel.HotelImage = bytes;
+                hotelViewModel.UploadDate = DateTime.Now;
+            }
             if (ModelState.IsValid)
             {
+                if (User.IsInRole("Admin"))
+                    hotelViewModel.Permission = "Approved";
+                else
+                    hotelViewModel.Permission = "Pending";
+                Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
+                hotelDetails.AddHotel(hotel);                                                   //Adding Hotel Details
+                TempData["HotelId"] = hotel.HotelId;
+                return RedirectToAction("AddRoomCategory", "Hotel", hotelViewModel);
+            }
+            if (!string.IsNullOrEmpty(Image))
+            {
                 var db = new UserContext();
-                Byte[] bytes = null;
-                if (hotelViewModel.HotelImage.FileName!=null)
+                if (hotelViewModel.HotelImages.FileName != null)
                 {
-                    Stream fs = hotelViewModel.HotelImage.InputStream;
+                    Stream fs = hotelViewModel.HotelImages.InputStream;
                     BinaryReader br = new BinaryReader(fs);
                     bytes = br.ReadBytes((Int32)fs.Length);
-                    //byte[] uploadedFile = new byte[hotelViewModel.FileAttach.InputStream.Length];
-                    //hotelViewModel.FileAttach.InputStream.Read(uploadedFile, 0, uploadedFile.Length);
-                    //hotelViewModel.fileContent = Convert.ToBase64String(uploadedFile);
-                    //string fileContentType = hotelViewModel.FileAttach.ContentType;
-                    //.sp_insert_file(hotelViewModel.FileAttach.FileName, fileContentType, fileContent);
-
-                    //hotelViewModel.HotelImage = new byte[HotelImage.ContentLength];
-                    //HotelImage.InputStream.Read(hotelViewModel.HotelImage, 0, HotelImage.ContentLength);
                     ImageObject image = new ImageObject();
                     image.FileName = hotelViewModel.HotelName;
                     image.HotelImage = bytes;
                     image.UploadDate = DateTime.Now;
                     hotelDetails.AddImage(image);
+                    //hotelDetails.GetImagesByName(hotelViewModel.HotelName);
                     ViewBag.Image = ViewImage(bytes);
                 }
-                Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
-                //hotel.HotelRoomCategories = new List<HotelRoomCategory>();
-                //foreach(int data in hotelViewModel.RoomCategory)
-                //{
-                //    HotelRoomCategory hotelRoomCategory = new HotelRoomCategory();
-                //    hotelRoomCategory.RoomId = data;
-                //    hotel.HotelRoomCategories.Add(hotelRoomCategory);
-                //}
-                hotelDetails.AddHotel(hotel);
-                TempData["HotelId"] = hotel.HotelId;
-                return RedirectToAction("AddRoomCategory", "Hotel");
+                ViewBag.Message = "The operation was cancelled!";
             }
             return View(hotelViewModel);
         }
@@ -205,28 +238,116 @@ namespace OnlineHotelBookingApplication.Controllers
         public ActionResult EditHotel(HotelViewModel hotelViewModel)
         {
             Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
-            Hotel hotelView = hotelDetails.GetHotelDetailsById(hotel.HotelId);
+            Hotel hotelView = hotelDetails.GetHotelDetailsById(hotel.HotelId);                          //Editing Hotel Details
+            ViewBag.Image = ViewImage(hotelView.HotelImage);
             return View(hotelView);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [ActionName("EditHotel")]
         public ActionResult Update([Bind(Exclude = "RoomCategory")]HotelViewModel hotelViewModel)
         {
-            Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
+            Byte[] bytes = null;
+            if (hotelViewModel.HotelImages != null)
+            {
+                Stream fs = hotelViewModel.HotelImages.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                bytes = br.ReadBytes((Int32)fs.Length);
+                hotelViewModel.HotelImage = bytes;
+            }
+            hotelViewModel.Permission = "Approved";
+            hotelViewModel.HotelOwner = User.Identity.Name;
+            Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);                 //Updating Hotel Details
             hotelDetails.UpdateHotel(hotel);
-            return RedirectToAction("ManageHotel", "Hotel");
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
+            else
+                return RedirectToAction("ManageHotel", "Hotel", new { MyHotel = "MyHotel" });
         }
         public ActionResult DeleteHotel(HotelViewModel hotelViewModel)
         {
-            UserContext userContext = new UserContext();
-            Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
-            hotelDetails.DeleteHotel(hotel);
+            Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);                 //Deleting Hotel Details
+        //    hotelDetails.DeleteHotel(hotel);
+            hotelDetails.DeclineHotel(hotel.HotelId);
             return RedirectToAction("ManageHotel", "Hotel");
         }
         private string ViewImage(byte[] arrayImage)
         {
-            string base64String = Convert.ToBase64String(arrayImage, 0, arrayImage.Length);
-            return "data:image/png;base64," + base64String;
+            return "";
+        }
+        public ActionResult EditRoomType(HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
+        {
+            List<RoomCategory> roomCategory = hotelDetails.GetCategory();
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            foreach (RoomCategory detail in roomCategory)                           //For Getting list of Categories
+            {
+                categoryList.Add(new SelectListItem { Text = @detail.RoomType, Value = @detail.RoomId.ToString() });
+            }
+            ViewBag.list = categoryList;
+            return View(hotelRoomCategoryViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("EditRoomType")]
+        public ActionResult UpdateRoomType([Bind(Exclude = "RoomCategory,Hotel")]HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
+        {
+            HotelRoomBind hotelRoomBind = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(hotelRoomCategoryViewModel);                 //Updating Hotel Details
+            hotelDetails.UpdateRoomType(hotelRoomBind);
+            if (User.IsInRole("Admin"))
+                return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
+            else
+                return RedirectToAction("ManageHotel", "Hotel", new { MyHotel = "MyHotel" });
+        }
+        public ActionResult DeleteRoomType(HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
+        {
+            HotelRoomBind hotelRoomBind = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(hotelRoomCategoryViewModel);                 //Deleting Hotel Details
+            hotelDetails.DeleteRoomType(hotelRoomBind.HotelRoomId);
+            return RedirectToAction("ManageHotel", "Hotel");
+        }
+        public ActionResult AcceptRequest(HotelViewModel hotelViewModel)
+        {
+            hotelDetails.AcceptHotel(hotelViewModel.HotelId);
+            return RedirectToAction("ManageHotel", "Hotel", new { Pending = "Pending" });
+        }
+        public ActionResult DeclineRequest(HotelViewModel hotelViewModel)
+        {
+            hotelDetails.DeclineHotel(hotelViewModel.HotelId);
+            return RedirectToAction("ManageHotel", "Hotel", new { Pending = "Pending" });
+        }
+        public ActionResult BookHotel(HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
+        {
+            ViewBag.A = TempData["CheckIn"];
+            ViewBag.B = TempData["CheckOut"];
+            TempData["CheckIn"] = ViewBag.A;
+            TempData["CheckOut"] = ViewBag.B;
+            BookViewModel bookHotelViewModel = new BookViewModel();
+            bookHotelViewModel.HotelRoomId = hotelRoomCategoryViewModel.HotelRoomId;
+            bookHotelViewModel.UserId = HttpContext.User.Identity.Name;
+            return View(bookHotelViewModel);
+        }
+        [HttpPost]
+        [ActionName("BookHotel")]
+        //public ActionResult BookingHotel([Bind(Exclude = "User,HotelRoomBind")]HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
+        //{
+        //    string userName = HttpContext.User.Identity.Name;
+        //    BookHotelViewModel bookHotelViewModel = new BookHotelViewModel();
+        //    bookHotelViewModel.UserId = userName;
+        //    bookHotelViewModel.HotelRoomId = hotelRoomCategoryViewModel.HotelRoomId;
+        //    BookHotel bookHotel = AutoMapper.Mapper.Map<BookHotelViewModel, BookHotel>(bookHotelViewModel);
+        //    hotelDetails.BookHotel(bookHotel);
+        //    return RedirectToAction("ManageHotel", "Hotel");
+        //}
+        public ActionResult BookingHotel(BookViewModel bookHotelViewModel)
+        {
+            ViewBag.C = TempData["CheckIn"];
+            ViewBag.D = TempData["CheckOut"];
+            bookHotelViewModel.CheckIn = ViewBag.C;
+            bookHotelViewModel.CheckOut = ViewBag.D;
+            BookHotel bookHotel = AutoMapper.Mapper.Map<BookViewModel, BookHotel>(bookHotelViewModel);
+            hotelDetails.UpdateRoomCount(bookHotelViewModel.HotelRoomId);
+            hotelDetails.BookHotel(bookHotel);
+            return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
         }
     }
 }
+

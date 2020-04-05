@@ -11,6 +11,6 @@ namespace OnlineHotelBookingApplication.Entity
         public int RoomId { get; set; }
         [Required]
         public string RoomType { get; set; }
-        public IList<Hotel> HotelRoomCategory { get; set; }
+        public IList<HotelRoomBind> HotelRooms { get; set; }
     }
 }

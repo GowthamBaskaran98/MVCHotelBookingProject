@@ -2,56 +2,84 @@
 @{
     ViewBag.Title = "AddHotel";
 }
+@Html.AntiForgeryToken();
 @using (Html.BeginForm("AddHotel", "Hotel", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <div id="form_wrapper">
-        <h1>Add Hotel</h1>
-        <table>
+    @Html.AntiForgeryToken()
+    <div class="main">
+        <div id="form_wrapper_hotel">
+            <h1>Add Hotel</h1>
+            <table>
+                <tr>
+                    <td>
+                        @Html.HiddenFor(model => model.HotelOwner, new { @maxlength = 20 })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.HotelName, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.HotelName, new { @class = "textBox", @maxlength = 20})
+                        @Html.ValidationMessageFor(model => model.HotelName, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { })
+                    </td>
+                    <td>
 
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.HotelName, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.HotelName, new { htmlAttributes = new { } })
-                    @Html.ValidationMessageFor(model => model.HotelName, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.HotelAddress, htmlAttributes: new { })
-                </td>
-                <td>
+                        @Html.TextBoxFor(model => model.Description, new { @class = "textBox", @maxlength = 100})
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Street, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.Street, new { @class = "textBox", @maxlength = 20 })
+                        @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { })
+                    </td>
+                    <td>
 
-                    @Html.EditorFor(model => model.HotelAddress, new { htmlAttributes = new { } })
-                    @Html.ValidationMessageFor(model => model.HotelAddress, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.Services, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.Services, new { htmlAttributes = new { } })
-                    @Html.ValidationMessageFor(model => model.Services, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="file" id="HotelImage" name="HotelImage" />
-                </td>
-            </tr>
-            <tr>
-                <td>Uploaded Image:</td>
-                <td>
-                    <img src="@ViewBag.Image" style="width:100%;height:10%" alt="Alternate Text" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Submit" />
-                </td>
-            </tr>
-        </table>
+                        @Html.TextBoxFor(model => model.City, new { @class = "textBox", @maxlength = 20 })
+                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.State, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(model => model.State, new { @class = "textBox", @maxlength = 20 })
+                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="file" id="HotelImages" name="HotelImages" />
+                    </td>
+                </tr>
+                @*<tr>
+                    <td>Uploaded Image:</td>
+                    <td>
+                        <img src="@ViewBag.Image" style="width:100%;height:10%" alt="Alternate Text" />
+                    </td>
+                </tr>*@
+                <tr>
+                    <td>
+                        <input type="submit" value="Submit" name="Save" />
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 }
+    

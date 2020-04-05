@@ -12,8 +12,8 @@ namespace OnlineHotelBookingApplication
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "User", action = "SignUp", id = UrlParameter.Optional }
+                defaults: new { controller = "Hotel", action = "ManageHotel", Status = "Approved", id = UrlParameter.Optional }
             );
-        }
+        }   
     }
 }

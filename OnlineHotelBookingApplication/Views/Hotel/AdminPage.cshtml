@@ -1,14 +1,18 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "AdminPage";
+    Layout = "~/Views/Shared/AdminMaster.cshtml";
 }
+
 <h2>Welcome to Hotel Booking Application</h2>
 
 @using (Html.BeginForm("AdminPage", "Hotel", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     //<input type="submit" value="Manage Hotel" onclick="window.location='@Url.Action("Admin","ManageHotel")'" id='input_submit' class='input_field'>
     //<input type="submit" value="Manage User" onclick="window.location='@Url.Action("ManageUser", "Admin")'" id='input_submit' class='input_field'>
     <div>
-        @Html.ActionLink("ManageHotel", "ManageHotel", new { area = "" }, new { @class = "Button" })
-        @Html.ActionLink("ManageUser", "ManageUser", new { area = "" }, new { @class = "Button" })
+        @Html.ActionLink("ManageHotel", "ManageHotel","Hotel", new { area = "" }, new { @class = "Button" })
+        @Html.ActionLink("ManageUser", "ManageUser","User", new { area = "" }, new { @class = "Button" })
     </div>
 }

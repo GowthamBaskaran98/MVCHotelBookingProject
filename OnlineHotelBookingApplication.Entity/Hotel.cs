@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Web;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,17 +10,33 @@ namespace OnlineHotelBookingApplication.Entity
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HotelId { get; set; }
-
+        [MaxLength(20)]
+        [Index(IsUnique = true)]
         [Required(ErrorMessage = "Hotel Name is required.")]
         public string HotelName { get; set; }
 
         [Required(ErrorMessage = "Hotel Address is required.")]
-        public string HotelAddress { get; set; }
+        public string Description { get; set; }
 
-        [Required(ErrorMessage = "Services is required.")]
-        public string Services { get; set; }
-        public IList<HotelRoomCategory> HotelRoomCategories { get; set; }
-        public IList<RoomCategory> RoomCategories { get; set; }
+        [Required(ErrorMessage = "Hotel Address is required.")]
+        public string Street { get; set; }
+
+        [Required(ErrorMessage = "Hotel Address is required.")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "Hotel Address is required.")]
+        public string State { get; set; }
+        
+        public Byte[] HotelImage { get; set; }
+
+        public DateTime UploadDate { get; set; }
+
+        public string HotelOwner { get; set; }
+        
+        public string Permission { get; set; }
+        //public IList<Demo> Demos { get; set; }
+        [NotMapped]
+        public IList<HotelRoomBind> HotelRooms { get; set; }
 
         public Hotel()
         {

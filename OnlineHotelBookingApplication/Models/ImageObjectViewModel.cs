@@ -9,7 +9,7 @@ namespace OnlineHotelBookingApplication.Models
     { 
         [Required]
         [Display(Name = "Upload File")]
-        public HttpPostedFileBase FileAttach { get; set; }
+        public HttpPostedFileBase[] FileAttach { get; set; }
         public List<ImageObject> ImageList { get; set; }
     }
 }

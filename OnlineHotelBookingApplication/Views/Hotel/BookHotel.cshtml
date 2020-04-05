@@ -1,0 +1,75 @@
+﻿@model OnlineHotelBookingApplication.Models.BookViewModel
+@{
+    ViewBag.Title = "AddBookingDetails";
+}
+@using (Html.BeginForm("BookHotel", "Hotel", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="main">
+        <h1>Add Booking Details</h1>
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.FirstName, new { })</td>
+                <td>
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { id = "FirstName", @maxlength = 15 } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { id = "LastName", @maxlength = 15 } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { id = "MobileNumber", @maxlength = 10 } })
+                    @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { id = "Gmail", @maxlength = 30 } })
+                    @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HotelRoomId, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.HotelRoomId, new { htmlAttributes = new { id = "MobileNumber", @maxlength = 10 } })
+                    @Html.ValidationMessageFor(model => model.HotelRoomId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.UserId, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { id = "Gmail", @maxlength = 30 } })
+                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @*@Html.ActionLink("Submit", "", null, new { @id = "submit" }, new { @class = "myButton"})*@
+                    @*<a href="#" class="myButton" >red</a>*@
+                    @*<div class="button_cont" align="center"><a class="buttonDesign" href="add-website-here" target="_blank" rel="nofollow noopener">Add Call to Action</a></div>*@
+                    <input type="submit" id="buttonDesign" value="Submit" />
+                    @*<button class="btn btn-6 btn-6d">Button</button>*@
+                </td>
+            </tr>
+        </table>
+    </div>
+}

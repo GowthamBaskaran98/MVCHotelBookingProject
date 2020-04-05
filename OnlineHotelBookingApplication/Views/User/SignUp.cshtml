@@ -2,16 +2,23 @@
 
 @{
     ViewBag.Title = "SignUp";
+    Html.EnableClientValidation(true);
 }
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<script src="~/scripts/jquery.validate.min.js"></script>
+<script src="~/scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/scripts/JavaScript.js"></script>
 @using (Html.BeginForm("SignUp", "User", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     <div id="form_wrapper">
         <h1>Register Form</h1>
+        <br />
         <table>
             <tr>
-               <td>@Html.LabelFor(model => model.FirstName, new { })</td> 
+               <td>@Html.LabelFor(model => model.FirstName, new {  })</td> 
                 <td>
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @maxlength = 15 } })
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "textBox", id ="FirstName" , @maxlength = 15 } } )
                     @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -20,7 +27,7 @@
                     @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @maxlength = 15 } })
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "textBox", id = "LastName", @maxlength = 15 } })
                     @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -29,7 +36,7 @@
                     @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @maxlength = 10 } })
+                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "textBox", id = "MobileNumber", @maxlength = 10 } })
                     @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
                 </td>
             </tr>
@@ -38,21 +45,26 @@
                     @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
                 </td>
                 <td>
-                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @maxlength = 30 } })
+                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { @class = "textBox", id = "Gmail", @maxlength = 30 } })
                     @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr>
                 <td>
                     @Html.LabelFor(model => model.Password, htmlAttributes: new { })
+                </td>
                 <td>
-                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @maxlength = 20 } })
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "textBox", id = "Password", @maxlength = 20 } })
                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="submit" value="Submit" />
+                    @*@Html.ActionLink("Submit", "", null, new { @id = "submit" }, new { @class = "myButton"})*@
+                    @*<a href="#" class="myButton" >red</a>*@
+                    @*<div class="button_cont" align="center"><a class="buttonDesign" href="add-website-here" target="_blank" rel="nofollow noopener">Add Call to Action</a></div>*@
+                    <input type="submit" id="buttonDesign" value="Submit" />
+                    @*<button class="btn btn-6 btn-6d">Button</button>*@
                 </td>
             </tr>
         </table>
