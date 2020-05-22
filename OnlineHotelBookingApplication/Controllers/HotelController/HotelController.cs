@@ -12,7 +12,7 @@ using System.Linq;
 namespace OnlineHotelBookingApplication.Controllers
 {
     [CustomExceptionFilter]
-    public class HotelController : Controller
+    public class HotelController : Controlle
     {
         IManageHotel hotelDetails;
         public HotelController()
