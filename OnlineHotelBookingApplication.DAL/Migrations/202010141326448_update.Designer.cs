@@ -7,13 +7,13 @@ namespace OnlineHotelBookingApplication.DAL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.0")]
-    public sealed partial class BP : IMigrationMetadata
+    public sealed partial class update : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(BP));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(update));
         
         string IMigrationMetadata.Id
         {
-            get { return "202003251322389_BP"; }
+            get { return "202010141326448_update"; }
         }
         
         string IMigrationMetadata.Source

@@ -2,9 +2,16 @@
 @{
     ViewBag.Title = "SignIn";
 }
+
 @using (Html.BeginForm("SignIn", "User", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
+    if (null != TempData["alertMessage"])
+    {
+        <script type="text/javascript">
+       alert("@TempData["alertMessage"]");
+        </script>
+    }
      <div id="form_wrapper">
            <h1>SignIn</h1>
         <table>

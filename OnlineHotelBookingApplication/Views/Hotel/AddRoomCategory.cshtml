@@ -25,11 +25,11 @@
                     <td>@user.RoomId</td>
                     <td>@user.AdultsPerRoom</td>
                     <td>@user.TotalRooms</td>
-                    <td>@user.BookedRooms</td>
-                    <td>@user.VacantRooms</td>
+                    @*<td>@user.BookedRooms</td>
+                    <td>@user.VacantRooms</td>*@
                     <td>@user.Cost</td>
                     <td>
-                        @Html.ActionLink("Edit", "EditRoomType", new { HotelId = user.HotelId })
+                        @Html.ActionLink("Edit", "EditRoomType", new { HotelId = user.HotelId, HotelRoomId = user.HotelRoomId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, AvailableRooms = user.AvailableRooms, Cost = user.Cost })
                         @Html.ActionLink("Delete", "DeleteRoomType", new { HotelId = user.HotelId }, new { onclick = "return confirm('Do you wish to delete this data?')" })
                     </td>
                 </tr>
@@ -71,24 +71,6 @@
                 <td>
                     @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.TotalRooms)
                     @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.TotalRooms)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.BookedRooms)
-                </td>
-                <td>
-                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.BookedRooms)
-                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.BookedRooms)
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.HotelRoomCategoryViewModel.VacantRooms)
-                </td>
-                <td>
-                    @Html.TextBoxFor(model => model.HotelRoomCategoryViewModel.VacantRooms)
-                    @Html.ValidationMessageFor(model => model.HotelRoomCategoryViewModel.VacantRooms)
                 </td>
             </tr>
             <tr>

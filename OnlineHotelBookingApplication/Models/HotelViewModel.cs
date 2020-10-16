@@ -45,7 +45,7 @@ namespace OnlineHotelBookingApplication.Models
 
         public string Permission { get; set; }
         //public int RoomId { get; set; }
-        //public int AvailableRooms { get; set; }
+        public int AvailableRooms { get; set; }
         //public int Cost { get; set; }
         [NotMapped]
         public IList<HotelRoomBind> HotelRooms { get; set; }

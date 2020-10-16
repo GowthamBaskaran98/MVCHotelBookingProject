@@ -7,11 +7,9 @@ namespace OnlineHotelBookingApplication.App_Start
     {
         public void OnException(ExceptionContext filterContext)
         {
-            //if (!filterContext.ExceptionHandled && filterContext.Exception is Exception)
-            //{
-            //    filterContext.Result = new RedirectResult("~/Filter/Error.cshtml");
-            //    filterContext.ExceptionHandled = true;
-            //}
+            if (!filterContext.ExceptionHandled && filterContext.Exception is Exception)
+            {
+            }
         }
     }
 }

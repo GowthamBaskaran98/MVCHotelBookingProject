@@ -51,6 +51,10 @@ namespace OnlineHotelBookingApplication.Models
         //    this.gmail = gmail;
         //    this.password = password;
         //}
+        public int AccountBalance { get; set; }
+
+        public string PromoCode { get; set; }
+
         public UserViewModel()
         {
 

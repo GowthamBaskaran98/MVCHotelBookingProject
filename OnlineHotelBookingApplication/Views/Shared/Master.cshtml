@@ -24,7 +24,7 @@
             @Html.ActionLink("SignIn", "SignIn", "User", new { area = "" }, new { @class = "buttons" })
         }
         @if (HttpContext.Current.User.IsInRole("Admin"))
-        {
+            {
             <div class="sidenav">
                 <table>
                     <tr>
@@ -35,11 +35,11 @@
                     </tr>
                 </table>
                 <a class="name">@User.Identity.Name</a>
-                <a>@Html.ActionLink("Heaven in hand", "HomePage", "Home", new { area = "" }, new { })</a>
+                <a>@Html.ActionLink("Heaven in hand", "HomePage", "Home", new { Approved = "Approved" }, new { })</a>
                 <a>@Html.ActionLink("ManageUser", "ManageUser", "User", new { area = "" }, new { })</a>
-                <a>@Html.ActionLink("Approved Hotel List", "ManageHotel", "Hotel", new { Status = "Approved" }, new { })</a>
-                <a>@Html.ActionLink("Requested Hotel List", "ManageHotel", "Hotel", new { Status = "Pending" }, new { })</a>
-                <a>@Html.ActionLink("Declined Hotel List", "ManageHotel", "Hotel", new { Status = "Declined" }, new { })</a>
+                <a>@Html.ActionLink("Approved Hotel List", "ManageHotel", "Hotel", new { Approved = "Approved" }, new { })</a>
+                <a>@Html.ActionLink("Requested Hotel List", "ManageHotel", "Hotel", new { Pending = "Pending" }, new { })</a>
+                <a>@Html.ActionLink("Declined Hotel List", "ManageHotel", "Hotel", new { Declined = "Declined" }, new { })</a>
                 <a>@Html.ActionLink("Logout", "SignOut", "User", "", new { })</a>
             </div>
         }
@@ -56,7 +56,7 @@
                 </table>
                 <a class="name">@User.Identity.Name</a>
                 <a>@Html.ActionLink("Heaven in Hand", "ManageHotel", "Hotel", new { Status = "Approved" }, new { })</a>
-                <a>@Html.ActionLink("My Bookings", "MyCart", "Hotel", new { area = "" }, new { })</a>
+              @*  <a>@Html.ActionLink("My Bookings", "ManageHotel", "Hotel", new { MyCart = "MyCart" }, new { })</a>*@
                 <a>@Html.ActionLink("Logout", "SignOut", "User", "", new { })</a>
             </div>
         }
@@ -73,7 +73,7 @@
                 </table>
                 <a class="name">@User.Identity.Name</a>
                 <a>@Html.ActionLink("Heaven in hand", "ManageHotel", "Hotel", new { Status = "Approved" }, new { @class = "navbar-brand" })</a>
-                <a>@Html.ActionLink("My Bookings", "MyCart", "Hotel", new { area = "" }, new { @class = "navbar-brand" })</a>
+                @*<a>@Html.ActionLink("My Bookings", "ManageHotel", "Hotel", new { MyCart = "MyCart" }, new { @class = "navbar-brand" })</a>*@
                 <a>@Html.ActionLink("My Hotel", "ManageHotel", "Hotel", new { MyHotel = "MyHotel" }, new { @class = "navbar-brand" })</a>
                 <a>@Html.ActionLink("Logout", "SignOut", "User", "", new { })</a>
             </div>

@@ -34,6 +34,7 @@ namespace OnlineHotelBookingApplication.Entity
         public string HotelOwner { get; set; }
         
         public string Permission { get; set; }
+        
         //public IList<Demo> Demos { get; set; }
         [NotMapped]
         public IList<HotelRoomBind> HotelRooms { get; set; }

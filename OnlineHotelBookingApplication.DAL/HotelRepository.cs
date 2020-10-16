@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using OnlineHotelBookingApplication.Entity;
+using System;
 
 namespace OnlineHotelBookingApplication.DAL
 {
@@ -22,14 +23,24 @@ namespace OnlineHotelBookingApplication.DAL
         int GetCountOfHotel();
         bool CheckHotelName(string HotelName);
         void UpdateRoomType(HotelRoomBind hotelRoomBind);
+       // void EditRoomType(HotelRoomBind hotelRoomBind);
         void DeleteRoomType(int HotelRoomId);
         void AcceptHotel(int HotelId);
+        void BookHotel(BookHotel bookHotel);
         void DeclineHotel(int HotelId);
+        HotelRoomBind GetRoomCategoryDetail(int HotelRoomId);
         List<Hotel> GetHotelByName(string Gmail);
+        HotelRoomBind GetRoomTypeDetails(int hotelRoomId);
+        List<BookHotel> GetBookingDetails(string Gmail);
         RoomCategory GetCategoryById(int RoomId);
         void UpdateRoomCount(int HotelRoomId);
+        int GetAvailableRoomsCount(int HotelId, int RoomId, string CheckIn, string CheckOut);
+        Referral GetReferrerDetail(string Gmail);
+        void Reward(string ReferrerId);
+        List<Referral> GetCandidateDetails(string Gmail);
     }
     public class HotelRepository : IHotelRepository
+
     {
         public void AddHotel(Hotel hotel)
         {
@@ -76,21 +87,30 @@ namespace OnlineHotelBookingApplication.DAL
                 return userContext.HotelDatabases.Where(model=>model.Permission == Decision).ToList();                                          //Getting Hotels Details
             }
         }
+        public int GetAvailableRoomsCount(int HotelId, int RoomId, string CheckIn, string CheckOut)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                DateTime dt;
+                dt = DateTime.Parse(CheckIn).AddDays(1);
+                DateTime dt1;
+                dt1 = DateTime.Parse(CheckIn).AddDays(-1);
+                int totalRooms;
+                int count = (from p in userContext.BookHotels where dt >= p.CheckIn && dt1 <= p.CheckIn && HotelId == p.HotelRooms.HotelId select p).Count();
+                if (RoomId == 0)
+                    totalRooms = (from num in userContext.HotelRooms where (HotelId == num.HotelId) select num.TotalRooms).Sum();
+                else
+                    totalRooms = (from num in userContext.HotelRooms where (HotelId == num.HotelId && RoomId == num.RoomId) select num.TotalRooms).SingleOrDefault();
+                return totalRooms - count;
+            }
+        }
         public List<HotelRoomBind> GetRoomCategoryDetails(int hotelId)
         {
             using (UserContext userContext = new UserContext())
             {                                                                                        //Getting Available Room Categories for a hotel
                 List<HotelRoomBind> hotel = userContext.HotelRooms.Include("RoomCategories").Include("HotelDatabase").Where(model => model.HotelId == hotelId).ToList();
-                //var room = (from rc in userContext.RoomCategories
-                //            join rd in userContext.HotelRooms on rc.RoomId equals rd.RoomId where rd.HotelId == rd.HotelId                           select new
-                //            {
-                //                rc.RoomType,
-                //                rd.AvailableRooms,
-                //                rd.AdultsPerRoom,
-                //                rd.Cost
-                //            }).ToList();
-                //List<> hotelRoomCategory = userContext.RoomCategories.Where(model => model.HotelId == hotelId).ToList();
-                return hotel;            }
+                return hotel;
+            }
         }
         public Hotel GetHotelDetailsById(int HotelId)
         {
@@ -98,6 +118,14 @@ namespace OnlineHotelBookingApplication.DAL
             {                                                                                       //Getting Hotel Detail Based on Hotel Id
                 Hotel hotel = userContext.HotelDatabases.Where(model => model.HotelId == HotelId).SingleOrDefault();
                 return hotel;
+            }
+        }
+        public HotelRoomBind GetRoomCategoryDetail(int HotelRoomId)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                HotelRoomBind hotelRoom = userContext.HotelRooms.Where(model => model.HotelRoomId == HotelRoomId).SingleOrDefault();
+                return hotelRoom;
             }
         }
         public void DeleteHotel(Hotel deleteHotel)
@@ -160,12 +188,27 @@ namespace OnlineHotelBookingApplication.DAL
                 userContext.SaveChanges();
             }
         }
+        //public void EditRoomType(HotelRoomBind hotelRoomBind)
+        //{
+        //    using (UserContext userContext = new UserContext())
+        //    {
+
+        //    }
+        //}
         public void DeleteRoomType(int HotelRoomId)
         {
             using (UserContext userContext = new UserContext())
             {
                 SqlParameter HotelRoom = new SqlParameter("@HotelRoomId", HotelRoomId);           //Deleting Hotel  Based on Hotel Id
                 int result = userContext.Database.ExecuteSqlCommand("sp_DeleteRoomType @HotelRoomId", HotelRoom);
+            }
+        }
+        public void BookHotel(BookHotel bookHotel)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                userContext.BookHotels.Add(bookHotel);
+                userContext.SaveChanges();
             }
         }
         public void AcceptHotel(int HotelId)
@@ -187,7 +230,13 @@ namespace OnlineHotelBookingApplication.DAL
             {
                 var hotel = userContext.HotelDatabases.Find(HotelId);
                 string Gmail = hotel.HotelOwner;
-                hotel.Permission = "Declined";
+                if (hotel.Permission != "Declined")
+                    hotel.Permission = "Declined";
+                else
+                {
+                    SqlParameter HotelIds = new SqlParameter("@HotelId", HotelId);           //Deleting Hotel  Based on Hotel Id
+                    int result = userContext.Database.ExecuteSqlCommand("sp_DeleteHotel @HotelId", HotelIds);
+                }   
                 userContext.SaveChanges();
             }
         }
@@ -197,6 +246,22 @@ namespace OnlineHotelBookingApplication.DAL
             {                                                                                       //Getting Image using Hotel Name
                 List<Hotel> hotel = userContext.HotelDatabases.Where(model => model.HotelOwner == Gmail).ToList();
                 return hotel;
+            }
+        }
+        public HotelRoomBind GetRoomTypeDetails(int HotelRoomId)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                HotelRoomBind hotelRoomDetails = userContext.HotelRooms.Where(model => model.HotelRoomId == HotelRoomId).SingleOrDefault();
+                return hotelRoomDetails;
+            }
+        }
+        public List<BookHotel> GetBookingDetails(string Gmail)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                List<BookHotel> bookHotels = userContext.BookHotels.Where(model => model.UserId == Gmail).ToList();
+                return bookHotels;
             }
         }
         public RoomCategory GetCategoryById(int RoomId)
@@ -211,9 +276,32 @@ namespace OnlineHotelBookingApplication.DAL
             using (UserContext userContext = new UserContext())
             {
                 var hotelRoom = userContext.HotelRooms.Find(HotelRoomId);
-                hotelRoom.BookedRooms += 1;
-                hotelRoom.VacantRooms -= 1;
+                //var availableRooms = userContext.
+                //hotelRoom.TotalRooms += 1;
                 userContext.SaveChanges();
+            }
+        }
+        public Referral GetReferrerDetail(string Gmail)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.Referrals.Where(model => model.Candidate == Gmail).SingleOrDefault();
+            }
+        }
+        public void Reward(string ReferrerId)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                User user = userContext.Users.Where(model => model.Gmail == ReferrerId).SingleOrDefault();
+                user.AccountBalance += 50;
+                userContext.SaveChanges();
+            }
+        }
+        public List<Referral> GetCandidateDetails(string Gmail)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                return userContext.Referrals.Where(model => model.ReferrerId == Gmail).ToList();
             }
         }
     }

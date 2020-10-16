@@ -6,7 +6,7 @@
 <div class="main">
     <h2>Manage User</h2><br />
     <table border="1">
-        <tr>
+        <tr class="userlistheading">
             <td>UserId</td>
             <td>Firstname</td>
             <td>LastName</td>
@@ -17,7 +17,7 @@
         </tr>
         @foreach (OnlineHotelBookingApplication.Models.UserViewModel user in Model)
         {
-            <tr>
+            <tr class="userlist">
                 <td>@user.UserId</td>
                 <td>@user.FirstName</td>
                 <td>@user.LastName</td>
@@ -32,4 +32,6 @@
             </tr>
         }
     </table>
-</div>x`
+</div>
+
+

@@ -19,14 +19,15 @@ public class HotelRoomBind
 
     public int TotalRooms { get; set; }
 
-    public int BookedRooms { get; set; }
+    //public int BookedRooms { get; set; }
 
-    public int VacantRooms { get; set; }
+        //public int VacantRooms { get; set; }
 
     public int Cost { get; set; }
 
     public Byte[] RoomImage { get; set; }
 
     public DateTime UploadDate { get; set; }
+
 }
 

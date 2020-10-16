@@ -22,9 +22,9 @@ namespace OnlineHotelBookingApplication.Models
         
         public int TotalRooms { get; set; }
 
-        public int BookedRooms { get; set; }
+        //public int BookedRooms { get; set; }
 
-        public int VacantRooms { get; set; }
+        //public int VacantRooms { get; set; }
 
         public int Cost { get; set; }
         
@@ -33,5 +33,8 @@ namespace OnlineHotelBookingApplication.Models
         public Byte[] RoomImage { get; set; }
 
         public DateTime UploadDate { get; set; }
+
+        public int AvailableRooms { get;  set; }
+
     }
 }

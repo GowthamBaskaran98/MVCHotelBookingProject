@@ -14,6 +14,8 @@ namespace OnlineHotelBookingApplication.BL
         User GetDetailsById(int id);
         bool CheckEmail(string Gmail);
         bool CheckMobileNumber(long MobileNumber);
+        bool CheckPromoCode(User User, string Code);
+        User GetUserDetailByName(string Gmail);
     }
     public class ManageUser : IManageUser
     {
@@ -54,6 +56,14 @@ namespace OnlineHotelBookingApplication.BL
         public bool CheckMobileNumber(long MobileNumber)
         {
             return userRepository.CheckMobileNumber(MobileNumber);
+        }
+        public bool CheckPromoCode(User user, string Code)
+        {
+            return userRepository.CheckPromoCode(user,Code);
+        }
+        public User GetUserDetailByName(string Gmail)
+        {
+            return userRepository.GetUserDetailByName(Gmail);
         }
     }
 }

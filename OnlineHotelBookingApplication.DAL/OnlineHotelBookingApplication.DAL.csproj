@@ -64,41 +64,21 @@
   <ItemGroup>
     <Compile Include="DbUtil.cs" />
     <Compile Include="HotelRepository.cs" />
-    <Compile Include="Migrations\202003210644250_datas.cs" />
-    <Compile Include="Migrations\202003210644250_datas.designer.cs">
-      <DependentUpon>202003210644250_datas.cs</DependentUpon>
+    <Compile Include="Migrations\202010071900107_dbs.cs" />
+    <Compile Include="Migrations\202010071900107_dbs.designer.cs">
+      <DependentUpon>202010071900107_dbs.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003210657366_datass.cs" />
-    <Compile Include="Migrations\202003210657366_datass.designer.cs">
-      <DependentUpon>202003210657366_datass.cs</DependentUpon>
+    <Compile Include="Migrations\202010140606052_as.cs" />
+    <Compile Include="Migrations\202010140606052_as.designer.cs">
+      <DependentUpon>202010140606052_as.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003221836049_v.cs" />
-    <Compile Include="Migrations\202003221836049_v.designer.cs">
-      <DependentUpon>202003221836049_v.cs</DependentUpon>
+    <Compile Include="Migrations\202010141306154_ass.cs" />
+    <Compile Include="Migrations\202010141306154_ass.designer.cs">
+      <DependentUpon>202010141306154_ass.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202003230656415_d.cs" />
-    <Compile Include="Migrations\202003230656415_d.designer.cs">
-      <DependentUpon>202003230656415_d.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003230720478_d1.cs" />
-    <Compile Include="Migrations\202003230720478_d1.designer.cs">
-      <DependentUpon>202003230720478_d1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003251322389_BP.cs" />
-    <Compile Include="Migrations\202003251322389_BP.designer.cs">
-      <DependentUpon>202003251322389_BP.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003251352027_BPs.cs" />
-    <Compile Include="Migrations\202003251352027_BPs.designer.cs">
-      <DependentUpon>202003251352027_BPs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003261511481_Ba.cs" />
-    <Compile Include="Migrations\202003261511481_Ba.designer.cs">
-      <DependentUpon>202003261511481_Ba.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202003310736520_bind.cs" />
-    <Compile Include="Migrations\202003310736520_bind.designer.cs">
-      <DependentUpon>202003310736520_bind.cs</DependentUpon>
+    <Compile Include="Migrations\202010141326448_update.cs" />
+    <Compile Include="Migrations\202010141326448_update.designer.cs">
+      <DependentUpon>202010141326448_update.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,36 +92,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202003210644250_datas.resx">
-      <DependentUpon>202003210644250_datas.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010071900107_dbs.resx">
+      <DependentUpon>202010071900107_dbs.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003210657366_datass.resx">
-      <DependentUpon>202003210657366_datass.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010140606052_as.resx">
+      <DependentUpon>202010140606052_as.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003221836049_v.resx">
-      <DependentUpon>202003221836049_v.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010141306154_ass.resx">
+      <DependentUpon>202010141306154_ass.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003230656415_d.resx">
-      <DependentUpon>202003230656415_d.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003230720478_d1.resx">
-      <DependentUpon>202003230720478_d1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251322389_BP.resx">
-      <DependentUpon>202003251322389_BP.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003251352027_BPs.resx">
-      <DependentUpon>202003251352027_BPs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003261511481_Ba.resx">
-      <DependentUpon>202003261511481_Ba.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202003310736520_bind.resx">
-      <DependentUpon>202003310736520_bind.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202010141326448_update.resx">
+      <DependentUpon>202010141326448_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

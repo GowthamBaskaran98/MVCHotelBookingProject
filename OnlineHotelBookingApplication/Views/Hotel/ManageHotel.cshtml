@@ -1,6 +1,13 @@
 ﻿@model OnlineHotelBookingApplication.Models.HotelTimingViewModel
 @{
     ViewBag.Title = "ManageHotel";
+    AjaxOptions options = new AjaxOptions
+    {
+        UpdateTargetId = "searchResult",
+        Confirm = "Are you sure to start search?",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "divLoading"
+    };
 }
 <meta charset="utf-8">
 <title>Chris Stanyon</title>
@@ -11,80 +18,155 @@
 <link href="@Url.Content("~/Content/themes/base/minified/jquery-ui.min.css")" rel="stylesheet" />
 <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")"></script>
 <script src="@Url.Content("~/Scripts/jquery-ui-1.10.4.min.js")"></script>
-<script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dateTo').datepicker({
+            dateFormat: 'd MM yy'
+        });
 
+        $('.dateFrom').datepicker({
+            dateFormat: 'd MM yy',
+            onSelect: function () {
+                var selectedDate = $(this).datepicker('getDate');
+                selectedDate.setDate(selectedDate.getDate() + 1);
+                $('.dateTo').datepicker('setDate', selectedDate);
+            }
+        });
+    });
 </script>
+<script>
+    $(document).ready(function () {
+        $('input[id$=dateFrom]').datepicker({});
+    });
+</script>
+
 <div class="main">
-    @using (Html.BeginForm("ManageHotel", "Hotel", FormMethod.Post))
-    {
-        <table>
-            <tr>
-                <td>@Html.TextBox("search", null, new { @placeholder = "Name / Place"} )</td>
-                <td><button class="search">Search</button></td>
+    <table>
+        <tr>
+            <td>
+                @using (Ajax.BeginForm("SearchPeople", options))
+                {
+                    if (null != TempData["alertMessage"])
+                    {
+                        <script type="text/javascript">
+                            alert("@TempData["alertMessage"]");
+                        </script>
+                    }
+
+                    <div id="divLoading" style="color: red; width: 200px; background-color: yellow; display: none; position: absolute;">
+                        Loading ....
+                    </div>
+                    <div>
+                        @Html.TextBox("keyword")
+                        <button type="submit">Search</button>
+                    </div>
+                }
+            </td>
+            @using (Html.BeginForm("ManageHotel", "Hotel", FormMethod.Post))
+            {
                 <td>
                     <label for="dateFrom" style="display:block">CheckIn :</label>
-                    @Html.TextBoxFor(model => model.TimingViewModel.CheckIn, "", new { @class = "dateFrom" })
+                    @Html.TextBoxFor(model => model.TimingViewModel.CheckIn, "", new { @class = "dateFrom" , Value = DateTime.Now })
                 </td>
                 <td>
                     <label for="dateTo" style="display:block">CheckOut :</label>
-                    @Html.TextBoxFor(model => model.TimingViewModel.CheckOut, "", new { @class = "dateTo" })
+                    @Html.TextBoxFor(model => model.TimingViewModel.CheckOut, "", new { @class = "dateFrom" , Value = (DateTime.Now.AddDays(1)) })
                 </td>
-            </tr>
-        </table>
-        <input type="submit" value="View Deal" />
-    }
+                <td>
+                    <input type="submit" value="Confirm" />
+                </td>
+            }
+            @using (Html.BeginForm("Referal", "Hotel", FormMethod.Post))
+            {
+            <td>
+                @if (Model.UserViewModel != null)
+                {
+                <button class="button" type="submit" data-hover=@Model.UserViewModel.AccountBalance data-active="I'M ACTIVE"><span> Earings </span></button>
+                }
+                else
+                {
+                    <button class="button" type = "button" data-hover="LogIn / SignUp " data-active="I'M ACTIVE" ><span> Earings </span></button>
+                }
+            </td>
+            }
+        </tr>
+    </table>
+
+    @*<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>*@
+    @*<table>*@
+    @*<tbody id="searchResult">*@
+    @* @Html.Action("SearchPeople", new { keyword = "" })*@
+    @*</tbody>*@
+    @*</table>*@
     <h1>Manage Hotel</h1>
     @Html.ActionLink("Give Add For Your Hotel", "AddHotel", new { })
+    <br /> 
     @foreach (OnlineHotelBookingApplication.Models.HotelViewModel user in Model.HotelViewModels)
-    {
-        <div>
-            @{
-                var base64 = Convert.ToBase64String(user.HotelImage);
-                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-            }
-        </div>
-        <div class="row">
-            <div class="column_one">
-                <img src="@imgSrc" class="HotelImage" />
-            </div>
-            <div class="column_two">
-                <div style="font-size:50px;color:royalblue">@user.HotelName</div>
-                <hr />
-                <div>@user.Description</div>
-                <div>@user.Street</div>
-                <div>@user.City</div>
-                <div>@user.State</div>
+            {
+        <div class="hotellist">
+            <div>
+                @{
+                    var base64 = Convert.ToBase64String(user.HotelImage);
+                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
             </div>
 
-            <div class="column_three">
-                <div class="verticalLine">
-                    @Html.ActionLink("View Deal", "DisplayRoomType", new { HotelId = user.HotelId }, new { @class = "buttons" })
-                    @if (ViewContext.HttpContext.User.IsInRole("Admin"))
-                    {
-                        if (user.Permission == "Approved")
-                        {
-                            <br />
-                            <br />
-                            @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
-                        }
-                        if (user.Permission == "Pending")
-                        {
-                            <br />
-                            <br />
-                            @Html.ActionLink("Accept", "AcceptRequest", new { HotelId = user.HotelId }, new { @class = "buttons" })
-                            @Html.ActionLink("Decline", "DeclineRequest", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
-                        }
+            <div class="row">
+                <div class="column_one">
+                    <img src="@imgSrc" class="HotelImage" />
+                </div>
+                <div class="column_two">
+                    <div style="font-size:50px;color:royalblue">@user.HotelName</div>
+                    <hr />
+                    <div>@user.Description</div>
+                    <div>@user.Street</div>
+                    <div>@user.City</div>
+                    <div>@user.State</div>
+                    @if (user.AvailableRooms != 0)
+                {
+                        <div>@user.AvailableRooms  Rooms left</div>
                     }
-                    @if (User.Identity.Name == user.HotelOwner)
-                    {
-                        <br />
-                        <br />
-                        @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId }, new { @class = "buttons" })
-                        @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
-                    }
+                </div>
+
+                <div class="column_three">
+                    <div class="verticalLine">
+                        @Html.ActionLink("View Deal", "DisplayRoomType", new { Hotel = user.HotelId }, new { @class = "buttons" })
+                        @if (ViewContext.HttpContext.User.IsInRole("Admin"))
+                        {
+                            if (user.Permission == "Approved")
+                            {
+                                <br />
+                                <br />
+                                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                            }
+                            if (user.Permission == "Pending")
+                            {
+                                <br />
+                                <br />
+                                @Html.ActionLink("Accept", "AcceptRequest", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                                @Html.ActionLink("Decline", "DeclineRequest", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                            }
+                            if (User.Identity.Name == user.HotelOwner)
+                            {
+                                <br />
+                                <br />
+                                @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                            }
+                        }
+                        else
+                        {
+                            if (User.Identity.Name == user.HotelOwner)
+                            {
+                                @Html.ActionLink("Edit", "EditHotel", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                                @Html.ActionLink("Delete", "DeleteHotel", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                            }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
         <br />
-    }
+                }
 </div>

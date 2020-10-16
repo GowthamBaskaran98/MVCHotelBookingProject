@@ -90,6 +90,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
@@ -145,6 +146,7 @@
     <Content Include="Images\images.jpg" />
     <Content Include="Images\Profile.png" />
     <Content Include="Images\ProfilePic.png" />
+    <Content Include="Images\Referal.png" />
     <Content Include="Images\source.gif" />
     <Content Include="Logger\ExceptionLog.txt" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
@@ -188,12 +190,14 @@
     <Compile Include="Models\HotelTimingViewModel.cs" />
     <Compile Include="Models\ImageObjectViewModel.cs" />
     <Compile Include="Models\MyCartViewModel.cs" />
+    <Compile Include="Models\ReferralViewModel.cs" />
     <Compile Include="Models\RoomCategoryViewModel.cs" />
     <Compile Include="Models\HotelRoomCategoryViewModel.cs" />
     <Compile Include="Models\HotelViewModel.cs" />
     <Compile Include="Models\RoomViewModel.cs" />
     <Compile Include="Models\SignInViewModel.cs" />
     <Compile Include="Models\TimingViewModel.cs" />
+    <Compile Include="Models\UserReferralViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -233,6 +237,8 @@
     <Content Include="Views\Filter\Error.cshtml" />
     <Content Include="Views\Hotel\EditRoomType.cshtml" />
     <Content Include="Views\Hotel\BookHotel.cshtml" />
+    <Content Include="Views\Hotel\MyCart.cshtml" />
+    <Content Include="Views\Hotel\Referal.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

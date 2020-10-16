@@ -21,3 +21,201 @@ Hotel ---> BookHotel ---> Cannot convert null to 'System.DateTime' because it is
 Hotel ---> MyCart ---> c:\users\admin\documents\visual studio 2015\Projects\OnlineHotelBookingApplication\OnlineHotelBookingApplication\Views\Hotel\MyCart.cshtml(22): error CS1061: 'IEnumerable<BookViewModel>' does not contain a definition for 'HotelRoomCategoryViewModels' and no extension method 'HotelRoomCategoryViewModels' accepting a first argument of type 'IEnumerable<BookViewModel>' could be found (are you missing a using directive or an assembly reference?) ---> 4/3/2020 8:06:15 PM
 Hotel ---> MyCart ---> c:\users\admin\documents\visual studio 2015\Projects\OnlineHotelBookingApplication\OnlineHotelBookingApplication\Views\Hotel\MyCart.cshtml(22): error CS1061: 'IEnumerable<BookViewModel>' does not contain a definition for 'HotelRoomCategoryViewModels' and no extension method 'HotelRoomCategoryViewModels' accepting a first argument of type 'IEnumerable<BookViewModel>' could be found (are you missing a using directive or an assembly reference?) ---> 4/5/2020 12:00:46 PM
 Hotel ---> MyCart ---> c:\users\admin\documents\visual studio 2015\Projects\OnlineHotelBookingApplication\OnlineHotelBookingApplication\Views\Hotel\MyCart.cshtml(22): error CS1061: 'IEnumerable<BookViewModel>' does not contain a definition for 'HotelRoomCategoryViewModels' and no extension method 'HotelRoomCategoryViewModels' accepting a first argument of type 'IEnumerable<BookViewModel>' could be found (are you missing a using directive or an assembly reference?) ---> 4/5/2020 12:04:41 PM
+Hotel ---> BookHotel ---> Cannot convert null to 'System.DateTime' because it is a non-nullable value type ---> 5/27/2020 2:44:03 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/12/2020 7:12:54 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/12/2020 7:13:21 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/12/2020 7:16:36 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/12/2020 7:16:38 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/12/2020 7:16:44 PM
+Hotel ---> AddHotel ---> The provided anti-forgery token was meant for user "gowthambas99@gmail.com", but the current user is "". ---> 7/12/2020 7:41:32 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/18/2020 5:28:27 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/18/2020 5:35:30 PM
+Hotel ---> AddRoomCategory ---> Object reference not set to an instance of an object. ---> 7/18/2020 5:35:35 PM
+Hotel ---> BookHotel ---> Cannot convert null to 'System.DateTime' because it is a non-nullable value type ---> 7/19/2020 5:02:55 PM
+Hotel ---> AcceptRequest ---> Object reference not set to an instance of an object. ---> 7/20/2020 9:03:17 PM
+Hotel ---> AcceptRequest ---> Object reference not set to an instance of an object. ---> 7/20/2020 9:05:06 PM
+Hotel ---> AcceptRequest ---> Object reference not set to an instance of an object. ---> 7/20/2020 9:05:17 PM
+Hotel ---> BookHotel ---> Cannot convert null to 'System.DateTime' because it is a non-nullable value type ---> 7/20/2020 9:51:28 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/21/2020 12:25:55 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/21/2020 12:26:11 PM
+Hotel ---> BookHotel ---> Validation failed for one or more entities. See 'EntityValidationErrors' property for more details. ---> 7/21/2020 12:39:13 PM
+Hotel ---> BookHotel ---> An error occurred while updating the entries. See the inner exception for details. ---> 7/21/2020 12:39:47 PM
+Hotel ---> DisplayRoomType ---> Sequence contains no elements ---> 7/21/2020 12:41:37 PM
+Hotel ---> DisplayRoomType ---> Sequence contains no elements ---> 7/21/2020 12:43:38 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:14:06 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:14:33 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:16:02 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:16:12 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:16:50 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:17:52 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:17:59 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:20:22 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:21:21 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:21:58 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:23:39 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:23:50 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:25:40 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:25:51 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:25:56 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:26:05 PM
+Hotel ---> SearchPeople ---> The partial view 'SearchPeople' was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:27:01 PM
+Hotel ---> SearchPeople ---> The view 'SearchPeople' or its master was not found or no view engine supports the searched locations. The following locations were searched:
+~/Views/Hotel/SearchPeople.aspx
+~/Views/Hotel/SearchPeople.ascx
+~/Views/Shared/SearchPeople.aspx
+~/Views/Shared/SearchPeople.ascx
+~/Views/Hotel/SearchPeople.cshtml
+~/Views/Hotel/SearchPeople.vbhtml
+~/Views/Shared/SearchPeople.cshtml
+~/Views/Shared/SearchPeople.vbhtml ---> 7/21/2020 1:40:44 PM
+Hotel ---> ManageHotel ---> The using block is missing a closing "}" character.  Make sure you have a matching "}" character for all the "{" characters within this block, and that none of the "}" characters are being interpreted as markup.
+ ---> 7/21/2020 6:00:43 PM
+Hotel ---> ManageHotel ---> Encountered end tag "table" with no matching start tag.  Are your start/end tags properly balanced?
+ ---> 7/21/2020 6:04:59 PM
+Hotel ---> ManageHotel ---> Encountered end tag "table" with no matching start tag.  Are your start/end tags properly balanced?
+ ---> 7/21/2020 6:05:01 PM
+Hotel ---> ManageHotel ---> Encountered end tag "table" with no matching start tag.  Are your start/end tags properly balanced?
+ ---> 7/21/2020 6:05:03 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/21/2020 9:46:35 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/21/2020 10:25:50 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/23/2020 8:48:50 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/24/2020 8:46:25 PM
+Hotel ---> BookHotel ---> String was not recognized as a valid DateTime. ---> 7/24/2020 8:52:40 PM
+Hotel ---> BookHotel ---> An error occurred while updating the entries. See the inner exception for details. ---> 7/24/2020 9:07:52 PM
+Hotel ---> BookHotel ---> An error occurred while updating the entries. See the inner exception for details. ---> 7/24/2020 9:08:11 PM

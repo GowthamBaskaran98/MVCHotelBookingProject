@@ -4,3 +4,12 @@
     Layout = "~/Views/Shared/Master.cshtml";
 }
 
+@using (Html.BeginForm("HomePage", "Home", FormMethod.Post))
+{
+    if (null != TempData["alertMessage"])
+    {
+<script type="text/javascript">
+       alert("@TempData["alertMessage"]");
+</script>
+    }
+}

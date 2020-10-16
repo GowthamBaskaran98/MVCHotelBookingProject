@@ -16,7 +16,7 @@ namespace OnlineHotelBookingApplication
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             MapperConfig.RegisterMaps();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+           // FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
         protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
         {

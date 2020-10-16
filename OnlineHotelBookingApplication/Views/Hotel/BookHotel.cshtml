@@ -1,75 +1,135 @@
-﻿@model OnlineHotelBookingApplication.Models.BookViewModel
+﻿@model OnlineHotelBookingApplication.Models.HotelTimingViewModel
 @{
     ViewBag.Title = "AddBookingDetails";
 }
+
 @using (Html.BeginForm("BookHotel", "Hotel", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="main">
-        <h1>Add Booking Details</h1>
-        <table>
-            <tr>
-                <td>@Html.LabelFor(model => model.FirstName, new { })</td>
-                <td>
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { id = "FirstName", @maxlength = 15 } })
-                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { id = "LastName", @maxlength = 15 } })
-                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { id = "MobileNumber", @maxlength = 10 } })
-                    @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.Gmail, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.Gmail, new { htmlAttributes = new { id = "Gmail", @maxlength = 30 } })
-                    @Html.ValidationMessageFor(model => model.Gmail, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.HotelRoomId, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.HotelRoomId, new { htmlAttributes = new { id = "MobileNumber", @maxlength = 10 } })
-                    @Html.ValidationMessageFor(model => model.HotelRoomId, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @Html.LabelFor(model => model.UserId, htmlAttributes: new { })
-                </td>
-                <td>
-                    @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { id = "Gmail", @maxlength = 30 } })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    @*@Html.ActionLink("Submit", "", null, new { @id = "submit" }, new { @class = "myButton"})*@
-                    @*<a href="#" class="myButton" >red</a>*@
-                    @*<div class="button_cont" align="center"><a class="buttonDesign" href="add-website-here" target="_blank" rel="nofollow noopener">Add Call to Action</a></div>*@
-                    <input type="submit" id="buttonDesign" value="Submit" />
-                    @*<button class="btn btn-6 btn-6d">Button</button>*@
-                </td>
-            </tr>
-        </table>
-    </div>
+            <table>
+                <tr>
+                    @using (Html.BeginForm("ManageHotel", "Hotel", FormMethod.Post))
+                    {
+                        <td>
+                            <label for="dateFrom" style="display:block">CheckIn :</label>
+                            @Html.TextBoxFor(model => model.TimingViewModel.CheckIn, "", new { @class = "dateFrom", Value = DateTime.Now })
+                        </td>
+                        <td>
+                            <label for="dateTo" style="display:block">CheckOut :</label>
+                            @Html.TextBoxFor(model => model.TimingViewModel.CheckOut, "", new { @class = "dateFrom", Value = (DateTime.Now.AddDays(1)) })
+                        </td>
+                        <td>
+                            <input type="submit" value="Confirm" />
+                        </td>
+                    }
+                </tr>
+            </table>
+        
+        
+        <div>
+            @{
+                var base64 = Convert.ToBase64String(Model.HotelViewModel.HotelImage);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+        </div>
+        <div class="row">
+            <div class="column_one">
+                <img src="@imgSrc" class="HotelImage" />
+            </div>
+            <div class="column_four">
+                <div style="font-size:50px;color:royalblue">@Model.HotelViewModel.HotelName</div>
+                <hr />
+                <p>Room Type : </p>
+                <div style="font-size:50px;color:royalblue">@Model.HotelRoomCategoryViewModel.RoomCategories.RoomType.FirstOrDefault()</div>
+                <div>Adults Per Room : @Model.HotelRoomCategoryViewModel.AdultsPerRoom</div>
+                <div>@Model.HotelViewModel.Description @Model.HotelViewModel.Street @Model.HotelViewModel.City @Model.HotelViewModel.State</div>
+                @if (Model.HotelViewModel.AvailableRooms != 0)
+                {
+                    <div>@Model.HotelViewModel.AvailableRooms  Rooms left</div>
+                }
+            </div>
+        </div>
+        <br />
+        <div>
+            @{
+                var bases = Convert.ToBase64String(Model.HotelRoomCategoryViewModel.RoomImage);
+                var img = String.Format("data:image/gif;base64,{0}", bases);
+            }
+        </div>
+        @*<div class="row">
+            <div class="column_one">
+                <img src="@img" class="HotelImage" />
+            </div>
+            <div class="column_two">
+                <p>Room Type : </p>
+                <div style="font-size:50px;color:royalblue">@Model.HotelRoomCategoryViewModel.RoomCategories.RoomType.FirstOrDefault()</div>
+                <hr />
+                <div>Adults Per Room : @Model.HotelRoomCategoryViewModel.AdultsPerRoom</div>
+                <div>Available Rooms : @Model.HotelRoomCategoryViewModel.AvailableRooms</div>
+                <div class="form-group">
+                    @if (Model.HotelRoomCategoryViewModel.AvailableRooms != 0)
+                    {
+                        <div>@Model.HotelRoomCategoryViewModel.AvailableRooms  Rooms left</div>
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(Model => Model.HotelRoomCategoryViewModel.AvailableRooms, Enumerable.Range(0, Model.HotelRoomCategoryViewModel.AvailableRooms + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @onChange = "selectedText(this)" })
+                                @Html.ValidationMessageFor(Model => Model.HotelRoomCategoryViewModel.AvailableRooms)
+                            </div>
+                    }
+                </div>
+                <div>Cost : @Model.HotelRoomCategoryViewModel.Cost</div>
+            </div>
+        </div>*@
+            <h1>Add Booking Details</h1>
+            <table>
+                <tr>
+                    <td>@Html.LabelFor(model => model.BookViewModel.FirstName, new { })</td>
+                    <td>
+                        @Html.EditorFor(model => model.BookViewModel.FirstName, new { htmlAttributes = new { id = "FirstName", @maxlength = 15 } })
+                        @Html.ValidationMessageFor(model => model.BookViewModel.FirstName, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BookViewModel.LastName, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.BookViewModel.LastName, new { htmlAttributes = new { id = "LastName", @maxlength = 15 } })
+                        @Html.ValidationMessageFor(model => model.BookViewModel.LastName, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BookViewModel.UserId, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.BookViewModel.UserId, new { htmlAttributes = new { id = "Gmail", @maxlength = 30 } })
+                        @Html.ValidationMessageFor(model => model.BookViewModel.UserId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BookViewModel.HotelRoomId, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.BookViewModel.HotelRoomId, new { htmlAttributes = new { id = "MobileNumber", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.BookViewModel.HotelRoomId, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BookViewModel.MobileNumber, htmlAttributes: new { })
+                    </td>
+                    <td>
+                        @Html.EditorFor(model => model.BookViewModel.MobileNumber, new { htmlAttributes = new { id = "MobileNumber", @maxlength = 10 } })
+                        @Html.ValidationMessageFor(model => model.BookViewModel.MobileNumber, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" id="buttonDesign" value="Submit" />
+                    </td>
+                </tr>
+            </table>
+        </div>
 }

@@ -60,6 +60,16 @@
             </tr>
             <tr>
                 <td>
+                    <p>Enter if you have promocode</p>
+                    @Html.LabelFor(model => model.PromoCode, htmlAttributes: new { })
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.PromoCode, new { htmlAttributes = new { @class = "textBox", id = "PromoCode", @maxlength = 20 } })
+                    @Html.ValidationMessageFor(model => model.PromoCode, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
                     @*@Html.ActionLink("Submit", "", null, new { @id = "submit" }, new { @class = "myButton"})*@
                     @*<a href="#" class="myButton" >red</a>*@
                     @*<div class="button_cont" align="center"><a class="buttonDesign" href="add-website-here" target="_blank" rel="nofollow noopener">Add Call to Action</a></div>*@

@@ -67,6 +67,7 @@
     <Compile Include="Hotel.cs" />
     <Compile Include="ImageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Referral.cs" />
     <Compile Include="RoomCategory.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>

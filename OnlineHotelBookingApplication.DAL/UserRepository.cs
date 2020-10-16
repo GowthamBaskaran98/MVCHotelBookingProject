@@ -17,6 +17,9 @@ namespace OnlineHotelBookingApplication.DAL
         void Update(User updateUser);
         bool CheckEmail(string Gmail);
         bool CheckMobileNumber(long MobileNumber);
+        bool CheckPromoCode(User user, string Code);
+        User GetUserDetailByName(string Gmail);
+        void Reward(string ReferrerId);
     }
     public class UserRepository : IUserRepository
     {
@@ -31,12 +34,13 @@ namespace OnlineHotelBookingApplication.DAL
                 SqlParameter Gmail = new SqlParameter("@Gmail", user.Gmail);
                 SqlParameter Password = new SqlParameter("@Password", user.Password);
                 SqlParameter UserType = new SqlParameter("@UserType", user.UserType);
-                int result = userContext.Database.ExecuteSqlCommand("sp_InsertUser @FirstName,@LastName,@MobileNumber,@Gmail,@Password,@UserType", FirstName, LastName, MobileNumber, Gmail, Password, UserType);
+                SqlParameter AccountBalance = new SqlParameter("@AccountBalance", user.AccountBalance);
+                int result = userContext.Database.ExecuteSqlCommand("sp_InsertUser @FirstName,@LastName,@MobileNumber,@Gmail,@Password,@UserType,@AccountBalance", FirstName, LastName, MobileNumber, Gmail, Password, UserType, AccountBalance);
                 //userContext.dataset.Add(user);
                 userContext.SaveChanges();
             }
         }
-        public User SignIn(string mail,string password)
+        public User SignIn(string mail, string password)
         {
             using (UserContext userContext = new UserContext())
             {                                                                               //Checking Email id and Password
@@ -57,6 +61,14 @@ namespace OnlineHotelBookingApplication.DAL
             using (UserContext userContext = new UserContext())
             {                                                                               //Getting details by Userid
                 User user = userContext.Users.Where(model => model.UserId == UserId).SingleOrDefault();
+                return user;
+            }
+        }
+        public User GetUserDetailByName(string Gmail)
+        {
+            using (UserContext userContext = new UserContext())
+            {                                                                               //Getting details by Userid
+                User user = userContext.Users.Where(model => model.Gmail == Gmail).SingleOrDefault();
                 return user;
             }
         }
@@ -87,7 +99,7 @@ namespace OnlineHotelBookingApplication.DAL
                 SqlParameter Gmail = new SqlParameter("@Gmail", user.Gmail);
                 SqlParameter Password = new SqlParameter("@Password", user.Password);
                 SqlParameter UserType = new SqlParameter("@UserType", user.UserType);
-                int result = userContext.Database.ExecuteSqlCommand("sp_UpdateUser @UserId,@FirstName,@LastName,@MobileNumber,@Gmail,@Password,@UserType", UserId,FirstName, LastName, MobileNumber, Gmail, Password, UserType);
+                int result = userContext.Database.ExecuteSqlCommand("sp_UpdateUser @UserId,@FirstName,@LastName,@MobileNumber,@Gmail,@Password,@UserType", UserId, FirstName, LastName, MobileNumber, Gmail, Password, UserType);
                 //    userContext.Entry(updateUser).State = EntityState.Modified;                 //Updating the User Details
                 userContext.SaveChanges();
             }
@@ -110,6 +122,34 @@ namespace OnlineHotelBookingApplication.DAL
                 if (user != null)
                     return false;
                 return true;
+            }
+        }
+        public bool CheckPromoCode(User user, string Code)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                var referrer = userContext.Users.Where(model => string.Compare(model.Gmail.Substring(0, 7) + model.UserId.ToString(), Code) == 0).First();
+                if (referrer != null)
+                {
+                    user.AccountBalance += 50;
+                    userContext.SaveChanges();
+                    Referral referrals = new Referral();
+                    referrals.ReferrerId = referrer.Gmail;
+                    referrals.Candidate = user.Gmail;
+                    userContext.Referrals.Add(referrals);
+                    userContext.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+        public void Reward(string ReferrerId)
+        {
+            using (UserContext userContext = new UserContext())
+            {
+                User user = userContext.Users.Where(model => model.Gmail == ReferrerId).SingleOrDefault();
+                user.AccountBalance += 50;
+                userContext.SaveChanges();                
             }
         }
     }

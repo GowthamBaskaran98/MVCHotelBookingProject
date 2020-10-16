@@ -38,6 +38,9 @@ namespace OnlineHotelBookingApplication.Entity
         public string Password { get; set; }
 
         public string UserType { get; set; }
+        
+        public int AccountBalance { get; set; }
+
         public User()
         {
 

@@ -31,8 +31,19 @@ namespace OnlineHotelBookingApplication.Controllers
             {
                 userViewModel.UserType = "Customer";
                 User user = AutoMapper.Mapper.Map<UserViewModel, User>(userViewModel);
+                if(userViewModel.PromoCode!= null)
+                {
+                    bool check = userDetails.CheckPromoCode(user, userViewModel.PromoCode);
+                    if (check == true)
+                        userViewModel.AccountBalance += 50;
+                    else
+                    {
+                        TempData["alertMessage"] = "Invalid PromoCode";
+                        return RedirectToAction("SignIn", "User");
+                    }
+                }
                 userDetails.SignUp(user);                                                       //Adding Customer Detials To database
-                //return Content("<script language='javascript' type='text/javascript'>alert('Registered Successfully!');</script>");
+                TempData["alertMessage"] = "Registered successfully";
                 return RedirectToAction("SignIn", "User");
             }
             return View();
@@ -62,16 +73,6 @@ namespace OnlineHotelBookingApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(SignInViewModel signInViewModel)
         {
-            //List<User> list = details.SignIn();
-            //foreach (var value in list)
-            //{
-            //    if (value.Gmail.Equals(user.Gmail) && value.Password.Equals(user.Password))
-            //    {
-            //        if (value.UserType.Equals("Admin"))
-            //            return RedirectToAction("AdminPage", "Admin");
-            //        return RedirectToAction("CustomerPage", "Customer");
-            //    }
-            //}
             User user = userDetails.SignIn(signInViewModel.Gmail, signInViewModel.Password);
             if (user != null)
             {
@@ -80,12 +81,11 @@ namespace OnlineHotelBookingApplication.Controllers
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);
+                TempData["alertMessage"] = "Login successfull";
                 return RedirectToAction("HomePage", "Home");
-                //if (user.UserType.Equals("Admin"))
-                //    return RedirectToAction("AdminPage", "Admin");
-                //return RedirectToAction("CustomerPage", "Customer");
             }
-            return RedirectToAction("SignUp", "User");
+            TempData["alertMessage"] = "Invalid Gmail or Password";
+            return RedirectToAction("SignIn", "User");
         }
         public ActionResult SignOut()
         {
@@ -136,6 +136,6 @@ namespace OnlineHotelBookingApplication.Controllers
             User userView = userDetails.GetDetailsById(user.UserId);
             userDetails.Delete(userView);
             return RedirectToAction("ManageUser", "User");
-        }// = new ManageHotel();
+        }
     }
 }

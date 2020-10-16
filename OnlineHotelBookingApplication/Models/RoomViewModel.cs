@@ -9,5 +9,7 @@ namespace OnlineHotelBookingApplication.Models
     {
         public HotelRoomCategoryViewModel HotelRoomCategoryViewModel { get; set; }
         public IEnumerable<HotelRoomCategoryViewModel> HotelRoomCategoryViewModels { get; set; }
+        public HttpPostedFileBase RoomImages { get; set; }
+        public Byte[] RoomImage { get; set; }
     }
 }

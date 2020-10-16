@@ -22,9 +22,17 @@ namespace OnlineHotelBookingApplication.BL
         void DeleteRoomType(int HotelRoomId);
         void AcceptHotel(int HotelId);
         void DeclineHotel(int HotelId);
+        void BookHotel(BookHotel bookHotel);
+        HotelRoomBind GetRoomCategoryDetail(int HotelRoomId);
         List<Hotel> GetHotelByName(string Gmail);
+        HotelRoomBind GetRoomTypeDetails(int HotelRoomId);
         RoomCategory GetCategoryById(int RoomId);
         void UpdateRoomCount(int HotelRoomId);
+        List<BookHotel> GetBookingDetails(string Gmail);
+        int GetAvailableRoomsCount(int HotelId, int RoomId, string CheckIn, string CheckOut);
+        Referral GetReferrerDetail(string Gmail);
+        List<Referral> GetCandidateDetails(string Gmail);
+        void Reward(string ReferrerId);
     }
     public class ManageHotel : IManageHotel
     {
@@ -81,6 +89,12 @@ namespace OnlineHotelBookingApplication.BL
         {
             return hotelRepository.CheckHotelName(HotelName);
         }
+
+        public HotelRoomBind GetRoomCategoryDetail(int HotelRoomId)
+        {
+            return hotelRepository.GetRoomCategoryDetail(HotelRoomId);
+        }
+
         public void UpdateRoomType(HotelRoomBind hotelRoomBind)
         {
             hotelRepository.UpdateRoomType(hotelRoomBind);
@@ -93,9 +107,17 @@ namespace OnlineHotelBookingApplication.BL
         {
             hotelRepository.AcceptHotel(HotelId);
         }
+        public void BookHotel(BookHotel bookHotel)
+        {
+            hotelRepository.BookHotel(bookHotel);
+        }
         public List<Hotel> GetHotelByName(string Gmail)
         {
             return hotelRepository.GetHotelByName(Gmail);
+        }
+        public HotelRoomBind GetRoomTypeDetails(int HotelRoomId)
+        {
+            return hotelRepository.GetRoomTypeDetails(HotelRoomId);
         }
         public RoomCategory GetCategoryById(int RoomId)
         {
@@ -109,5 +131,25 @@ namespace OnlineHotelBookingApplication.BL
         {
             hotelRepository.UpdateRoomCount(HotelRoomId); 
         }
+        public List<BookHotel> GetBookingDetails(string Gmail)
+        {
+            return hotelRepository.GetBookingDetails(Gmail);
+        }
+        public int GetAvailableRoomsCount(int HotelId, int RoomId, string CheckIn, string CheckOut)
+        {
+            return hotelRepository.GetAvailableRoomsCount(HotelId, RoomId, CheckIn, CheckOut);
+        }
+        public Referral GetReferrerDetail(string Gmail)
+        {
+            return hotelRepository.GetReferrerDetail(Gmail);
+        }
+        public void Reward(string ReferrerId)
+        {
+            hotelRepository.Reward(ReferrerId);
+        }
+        public List<Referral> GetCandidateDetails(string Gmail)
+        {
+            return hotelRepository.GetCandidateDetails(Gmail);
+        }
     }
-}   
+}
