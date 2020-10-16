@@ -84,7 +84,9 @@ namespace OnlineHotelBookingApplication.Controllers
                 TempData["alertMessage"] = "Login successfull";
                 return RedirectToAction("HomePage", "Home");
             }
-            TempData["alertMessage"] = "Invalid Gmail or Password";
+            TempData["Invalid"] = "Invalid Username or Password";
+            Response.Write("<script language='javascript'>alert('UserName or Password is incorrect');</script>");
+             //   TempData["alertMessage"] = "Invalid Gmail or Password";
             return RedirectToAction("SignIn", "User");
         }
         public ActionResult SignOut()

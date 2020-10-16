@@ -359,6 +359,14 @@ namespace OnlineHotelBookingApplication.Controllers
         [ActionName("EditRoomType")]
         public ActionResult UpdateRoomType([Bind(Exclude = "RoomCategory,Hotel")]HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
         {
+            Byte[] bytes = null;
+            if (hotelRoomCategoryViewModel.RoomImages.FileName != null)
+            {
+                Stream fs = hotelRoomCategoryViewModel.RoomImages.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                bytes = br.ReadBytes((Int32)fs.Length);
+                hotelRoomCategoryViewModel.RoomImage = bytes;
+            }
             hotelRoomCategoryViewModel.UploadDate = DateTime.Now;
             HotelRoomBind hotelRoomBind = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(hotelRoomCategoryViewModel);                 //Updating Hotel Details
             hotelDetails.UpdateRoomType(hotelRoomBind);
@@ -411,10 +419,13 @@ namespace OnlineHotelBookingApplication.Controllers
             TempData["alertMessage"] = "Booked Successfully";
             return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });
         }
-        public ActionResult AcceptRequest(HotelViewModel hotelViewModel)
+        public ActionResult AcceptRequest(HotelViewModel hotelViewModel, string Pending, string Declined)
         {
             hotelDetails.AcceptHotel(hotelViewModel.HotelId);
-            return RedirectToAction("ManageHotel", "Hotel", new { Pending = "Pending" });
+            if(Pending == "Pending")
+                return RedirectToAction("ManageHotel", "Hotel", new { Pending = "Pending" });
+            else
+                return RedirectToAction("ManageHotel", "Hotel", new { Declined = "Declined" });
         }
         public ActionResult DeclineRequest(HotelViewModel hotelViewModel)
         {

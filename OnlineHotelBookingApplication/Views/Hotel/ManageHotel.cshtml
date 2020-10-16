@@ -145,8 +145,14 @@
                             {
                                 <br />
                                 <br />
-                                @Html.ActionLink("Accept", "AcceptRequest", new { HotelId = user.HotelId }, new { @class = "buttons" })
+                                @Html.ActionLink("Accept", "AcceptRequest", new { HotelId = user.HotelId, Pending = "Pending" }, new { @class = "buttons" })
                                 @Html.ActionLink("Decline", "DeclineRequest", new { HotelId = user.HotelId }, new { @class = "buttons", onclick = "return confirm('Do you wish to delete this data?')" })
+                            }
+                            if (user.Permission == "Declined")
+                            {
+                                <br />
+                                <br />
+                                @Html.ActionLink("Accept", "AcceptRequest", new { HotelId = user.HotelId, Declined = "Declined"}, new { @class = "buttons" })
                             }
                             if (User.Identity.Name == user.HotelOwner)
                             {

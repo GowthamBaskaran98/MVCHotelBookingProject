@@ -14,11 +14,11 @@
 {
     TempData.Keep("Hotel");
 }
- @if(TempData["CheckIn"] != null && TempData["CheckOut"] != null)
- {
-     TempData.Keep("CheckIn");
-     TempData.Keep("CheckOut");
- }
+@if (TempData["CheckIn"] != null && TempData["CheckOut"] != null)
+{
+    TempData.Keep("CheckIn");
+    TempData.Keep("CheckOut");
+}
 
 <meta charset="utf-8">
 <title>Chris Stanyon</title>
@@ -75,7 +75,7 @@
                     </div>
                 }
             </td>
-            @using (Html.BeginForm("DisplayRoomType", "Hotel", new { Hotel = ViewBag.Hotel}, FormMethod.Post))
+            @using (Html.BeginForm("DisplayRoomType", "Hotel", new { Hotel = ViewBag.Hotel }, FormMethod.Post))
             {
                 <td>
                     <label for="dateFrom" style="display:block">CheckIn :</label>
@@ -87,27 +87,12 @@
                 </td>
 
                 <td>
-                    <input type="submit" value="Confirm"  />
+                    <input type="submit" value="Confirm" />
                 </td>
             }
         </tr>
     </table>
-        @*<table>
-            <tr>
-                <td>
-                    <label for="dateFrom" style="display:block">CheckIn :</label>
-                    @ViewBag.CheckIn
-                </td>
-                <td>
-                    <label for="dateTo" style="display:block">CheckOut :</label>
-                    @*  <input type="text" id="dateTo">*@
-                    @*<input class="date-picker" />*@
-                    @*@Html.TextBoxFor(model => model.TimingViewModel.CheckOut, "", new { @class = "dateTo" })*@
-                   @*@ @ViewBag.CheckOut
-                </td>
-            </tr>
-        </table>*@
-
+    <div class="hotellist">
         <div>
             @{
                 var base64 = Convert.ToBase64String(Model.HotelViewModel.HotelImage);
@@ -118,7 +103,7 @@
             <div class="column_one">
                 <img src="@imgSrc" class="HotelImage" />
             </div>
-            <div class="column_two">
+            <div class="column_four">
                 <div style="font-size:50px;color:royalblue">@Model.HotelViewModel.HotelName</div>
                 <hr />
                 <div>@Model.HotelViewModel.Description</div>
@@ -127,52 +112,57 @@
                 <div>@Model.HotelViewModel.State</div>
             </div>
         </div>
-        <br />
-        <br />
+    </div>
+    <br />
+    <br />
+    <div class="hotellist">
         @foreach (var user in Model.HotelRoomCategoryViewModels)
         {
-            <div>
-                @{
-                    var bases = Convert.ToBase64String(Model.HotelRoomCategoryViewModels.First().RoomImage);
-                    var img = String.Format("data:image/gif;base64,{0}", bases);
-                }
-            </div>
-            <div class="row">
-                <div class="column_one">
-                    <img src="@img" class="HotelImage" />
+            <div class="hotellist">
+                <div>
+                    @{
+                        var bases = Convert.ToBase64String(Model.HotelRoomCategoryViewModels.First().RoomImage);
+                        var img = String.Format("data:image/gif;base64,{0}", bases);
+                    }
                 </div>
-                <div class="column_two">
-                    <p>Room Type : </p>
-                    <div style="font-size:50px;color:royalblue">@user.RoomCategories.RoomType</div>
-                    <hr />
-                    <div>Adults Per Room : @user.AdultsPerRoom</div>
-                    <div>Available Rooms : @user.AvailableRooms</div>
-                    <div class="form-group">
-                    @if (user.AvailableRooms != 0)
-                    {
-                            <div>@user.AvailableRooms  Rooms left</div>
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(Model => Model.HotelRoomCategoryViewModel.AvailableRooms, Enumerable.Range(0, user.AvailableRooms + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @onChange = "selectedText(this)" })
-                                @Html.ValidationMessageFor(Model => Model.HotelRoomCategoryViewModel.AvailableRooms)
-                            </div>
-                        }
+                <div class="row">
+                    <div class="column_one">
+                        <img src="@img" class="HotelImage" />
                     </div>
-                    <div>Cost : @user.Cost</div>
-                </div>
-                <div class="column_three">
-                    <div class="verticalLine">
-                        @if (@Model.HotelViewModel.HotelOwner == User.Identity.Name)
-                        {
-                            @Html.ActionLink("Edit", "EditRoomType", new { HotelRoomId = user.HotelRoomId, HotelId = user.HotelId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, RoomType = user.RoomCategories.RoomType, TotalRooms = user.TotalRooms, Cost = user.Cost })
-                            @Html.ActionLink("Delete", "DeleteRoomType", new { HotelRoomId = user.HotelRoomId })
-                            @Html.ActionLink("Book Hotel", "BookHotel", new { HotelRoomId = user.HotelRoomId, HotelId = user.HotelId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, RoomType = user.RoomCategories.RoomType, TotalRooms = user.TotalRooms, Cost = user.Cost })
-                        }
-                        else
-                        {
-                            @Html.ActionLink("Book Hotel", "BookHotel", new { HotelRoomId = user.HotelRoomId, HotelId = user.HotelId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, RoomType = user.RoomCategories.RoomType, TotalRooms = user.TotalRooms, Cost = user.Cost })
-                        }
+                    <div class="column_two">
+                        <p>Room Type : </p>
+                        <div style="font-size:50px;color:royalblue">@user.RoomCategories.RoomType</div>
+                        <hr />
+                        <div>Adults Per Room : @user.AdultsPerRoom</div>
+                        <div>Available Rooms : @user.AvailableRooms</div>
+                        <div class="form-group">
+                            @if (user.AvailableRooms != 0)
+                            {
+                                <div>@user.AvailableRooms  Rooms left</div>
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(Model => Model.HotelRoomCategoryViewModel.AvailableRooms, Enumerable.Range(0, user.AvailableRooms + 1).Select(i => new SelectListItem { Text = i.ToString(), Value = i.ToString() }), new { @onChange = "selectedText(this)" })
+                                    @Html.ValidationMessageFor(Model => Model.HotelRoomCategoryViewModel.AvailableRooms)
+                                </div>
+                            }
+                        </div>
+                        <div>Cost : @user.Cost</div>
+                    </div>
+                    <div class="column_three">
+                        <div class="verticalLine">
+                            @if (@Model.HotelViewModel.HotelOwner == User.Identity.Name)
+                            {
+                                @Html.ActionLink("Edit", "EditRoomType", new { HotelRoomId = user.HotelRoomId, HotelId = user.HotelId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, RoomType = user.RoomCategories.RoomType, TotalRooms = user.TotalRooms, Cost = user.Cost, })
+                                @Html.ActionLink("Delete", "DeleteRoomType", new { HotelRoomId = user.HotelRoomId })
+                                @Html.ActionLink("Book Hotel", "BookHotel", new { HotelRoomId = user.HotelRoomId, HotelId = user.HotelId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, RoomType = user.RoomCategories.RoomType, TotalRooms = user.TotalRooms, Cost = user.Cost })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Book Hotel", "BookHotel", new { HotelRoomId = user.HotelRoomId, HotelId = user.HotelId, RoomId = user.RoomId, AdultsPerRoom = user.AdultsPerRoom, RoomType = user.RoomCategories.RoomType, TotalRooms = user.TotalRooms, Cost = user.Cost })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-            }
+                        }
+    </div>
     </div>

@@ -483,3 +483,6 @@ table {
     border: 2px solid black;
 }
 
+.invalid {
+    color: red;
+}
