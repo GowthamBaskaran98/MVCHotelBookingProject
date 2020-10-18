@@ -92,6 +92,12 @@
             }
         </tr>
     </table>
+
+    @if (User.Identity.Name == Model.HotelViewModel.HotelOwner)
+    {
+        @Html.ActionLink("AddRoomCategory", "Hotel")
+    }
+
     <div class="hotellist">
         <div>
             @{

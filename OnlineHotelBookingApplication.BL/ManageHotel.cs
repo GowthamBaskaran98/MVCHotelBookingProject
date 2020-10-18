@@ -14,8 +14,6 @@ namespace OnlineHotelBookingApplication.BL
         void AddRoomCategoryForHotel(HotelRoomBind hotelRoomCategory);
         List<Hotel> GetHotelDetails(string Decision);
         Hotel GetHotelDetailsById(int id);
-        void AddImage(ImageObject image);
-        List<ImageObject> GetImagesByName(string hotelName);
         int GetCountOfHotel();
         bool CheckHotelName(string HotelName);
         void UpdateRoomType(HotelRoomBind hotelRoomBind);
@@ -72,14 +70,6 @@ namespace OnlineHotelBookingApplication.BL
         public Hotel GetHotelDetailsById(int id)
         {
             return hotelRepository.GetHotelDetailsById(id);
-        }
-        public void AddImage(ImageObject image)
-        {
-            hotelRepository.AddImage(image);
-        }
-        public List<ImageObject> GetImagesByName(string hotelName)
-        {
-            return hotelRepository.GetImagesByName(hotelName);
         }
         public int GetCountOfHotel()
         {

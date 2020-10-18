@@ -10,6 +10,7 @@ using OnlineHotelBookingApplication.App_Start;
 using System.Speech.Recognition;
 using System.Linq;
 using System.Web.Services.Description;
+using System.Text;
 
 namespace OnlineHotelBookingApplication.Controllers
 {
@@ -52,9 +53,63 @@ namespace OnlineHotelBookingApplication.Controllers
             var HotelList = (from N in hotelList where N.HotelName.StartsWith(Prefix) select new { N.HotelName });
             return Json(HotelList, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddRoomCategory()
+        public ActionResult AddHotel()
         {
-            HotelRoomCategoryViewModel category = new HotelRoomCategoryViewModel();
+            List<RoomCategory> roomCategory = hotelDetails.GetCategory();
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            foreach (RoomCategory detail in roomCategory)
+            {
+                categoryList.Add(new SelectListItem { Text = @detail.RoomType, Value = @detail.RoomId.ToString() });
+            }
+            ViewBag.List = categoryList;
+            ViewBag.RoomCategory = new SelectList(hotelDetails.GetCategory(), "RoomId", "RoomType");
+            HotelViewModel hotelViewModel = new HotelViewModel();
+            hotelViewModel.HotelOwner = User.Identity.Name;
+            return View(hotelViewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddHotel(HotelViewModel hotelViewModel)
+        {
+            Byte[] bytes = null;
+            if (hotelViewModel.HotelImages.FileName != null)
+            {
+                Stream fs = hotelViewModel.HotelImages.InputStream;
+                BinaryReader br = new BinaryReader(fs);
+                bytes = br.ReadBytes((Int32)fs.Length);
+                hotelViewModel.HotelImage = bytes;
+                hotelViewModel.UploadDate = DateTime.Now;
+            }
+            if (ModelState.IsValid)
+            {
+                if (User.IsInRole("Admin"))
+                    hotelViewModel.Permission = "Approved";
+                else
+                    hotelViewModel.Permission = "Pending";
+                Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
+                hotelDetails.AddHotel(hotel);                                                   //Adding Hotel Details
+                TempData["HotelId"] = hotel.HotelId;
+                return RedirectToAction("AddRoomCategory", "Hotel",hotelViewModel);
+            }
+            //if (!string.IsNullOrEmpty(Image))
+            //{
+            //    var db = new UserContext();
+            //    if (hotelViewModel.HotelImages.FileName != null)
+            //    {
+            //        Stream fs = hotelViewModel.HotelImages.InputStream;
+            //        BinaryReader br = new BinaryReader(fs);
+            //        bytes = br.ReadBytes((Int32)fs.Length);
+            //        ImageObject image = new ImageObject();
+            //        image.FileName = hotelViewModel.HotelName;
+            //        image.HotelImage = bytes;
+            //        image.UploadDate = DateTime.Now;
+            //        hotelDetails.AddImage(image);
+            //     }
+            //}
+            return View(hotelViewModel);
+        }
+        public ActionResult AddRoomCategory(HotelRoomCategoryViewModel category)
+        {
             category.HotelId = (int)TempData["HotelId"];
             List<RoomCategory> roomCategory = hotelDetails.GetCategory();
             List<SelectListItem> categoryList = new List<SelectListItem>();
@@ -73,7 +128,8 @@ namespace OnlineHotelBookingApplication.Controllers
             RoomViewModel roomViewModel = new RoomViewModel();
             roomViewModel.HotelRoomCategoryViewModel = category;
             roomViewModel.HotelRoomCategoryViewModels = hotelRoomList;
-            //return View(hotelViewModel);
+            Hotel hotel = hotelDetails.GetHotelDetailsById(category.HotelId);
+            roomViewModel.HotelViewModel = AutoMapper.Mapper.Map<Hotel, HotelViewModel>(hotel);
             return View(roomViewModel);
         }
         [HttpPost]
@@ -236,63 +292,6 @@ namespace OnlineHotelBookingApplication.Controllers
             hotelTimingViewModel.HotelRoomCategoryViewModels = hotelList;
             return View(hotelTimingViewModel);
         }
-        public ActionResult AddHotel()
-        {
-            List<RoomCategory> roomCategory = hotelDetails.GetCategory();
-            List<SelectListItem> categoryList = new List<SelectListItem>();
-            foreach (RoomCategory detail in roomCategory)
-            {
-                categoryList.Add(new SelectListItem { Text = @detail.RoomType, Value = @detail.RoomId.ToString() });
-            }
-            ViewBag.List = categoryList;
-            ViewBag.RoomCategory = new SelectList(hotelDetails.GetCategory(), "RoomId", "RoomType");
-            HotelViewModel hotelViewModel = new HotelViewModel();
-            hotelViewModel.HotelOwner = User.Identity.Name;
-            return View(hotelViewModel);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult AddHotel(HotelViewModel hotelViewModel, string Image)
-        {
-            Byte[] bytes = null;
-            if (hotelViewModel.HotelImages.FileName != null)
-            {
-                Stream fs = hotelViewModel.HotelImages.InputStream;
-                BinaryReader br = new BinaryReader(fs);
-                bytes = br.ReadBytes((Int32)fs.Length);
-                hotelViewModel.HotelImage = bytes;
-                hotelViewModel.UploadDate = DateTime.Now;
-            }
-            if (ModelState.IsValid)
-            {
-                if (User.IsInRole("Admin"))
-                    hotelViewModel.Permission = "Approved";
-                else
-                    hotelViewModel.Permission = "Pending";
-                Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);
-                hotelDetails.AddHotel(hotel);                                                   //Adding Hotel Details
-                TempData["HotelId"] = hotel.HotelId;
-                return RedirectToAction("AddRoomCategory", "Hotel", hotelViewModel);
-            }
-            if (!string.IsNullOrEmpty(Image))
-            {
-                var db = new UserContext();
-                if (hotelViewModel.HotelImages.FileName != null)
-                {
-                    Stream fs = hotelViewModel.HotelImages.InputStream;
-                    BinaryReader br = new BinaryReader(fs);
-                    bytes = br.ReadBytes((Int32)fs.Length);
-                    ImageObject image = new ImageObject();
-                    image.FileName = hotelViewModel.HotelName;
-                    image.HotelImage = bytes;
-                    image.UploadDate = DateTime.Now;
-                    hotelDetails.AddImage(image);
-                    ViewBag.Image = ViewImage(bytes);
-                }
-                ViewBag.Message = "The operation was cancelled!";
-            }
-            return View(hotelViewModel);
-        }
         [HttpGet]
         public ActionResult EditHotel(HotelViewModel hotelViewModel)
         {
@@ -306,6 +305,7 @@ namespace OnlineHotelBookingApplication.Controllers
         [ActionName("EditHotel")]
         public ActionResult Update([Bind(Exclude = "RoomCategory")]HotelViewModel hotelViewModel)
         {
+            Hotel hotel = new Hotel();
             Byte[] bytes = null;
             if (hotelViewModel.HotelImages != null)
             {
@@ -314,9 +314,14 @@ namespace OnlineHotelBookingApplication.Controllers
                 bytes = br.ReadBytes((Int32)fs.Length);
                 hotelViewModel.HotelImage = bytes;
             }
+            else
+            {
+                hotel = hotelDetails.GetHotelDetailsById(hotelViewModel.HotelId);
+                hotelViewModel.HotelImage = hotel.HotelImage;
+            }
             hotelViewModel.Permission = "Approved";
             hotelViewModel.HotelOwner = User.Identity.Name;
-            Hotel hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);                 //Updating Hotel Details
+            hotel = AutoMapper.Mapper.Map<HotelViewModel, Hotel>(hotelViewModel);                 //Updating Hotel Details
             hotelDetails.UpdateHotel(hotel);
             if (User.IsInRole("Admin"))
             {
@@ -360,15 +365,21 @@ namespace OnlineHotelBookingApplication.Controllers
         public ActionResult UpdateRoomType([Bind(Exclude = "RoomCategory,Hotel")]HotelRoomCategoryViewModel hotelRoomCategoryViewModel)
         {
             Byte[] bytes = null;
-            if (hotelRoomCategoryViewModel.RoomImages.FileName != null)
+            HotelRoomBind hotelRoomBind = new HotelRoomBind();
+            if (hotelRoomCategoryViewModel.RoomImages != null)
             {
                 Stream fs = hotelRoomCategoryViewModel.RoomImages.InputStream;
                 BinaryReader br = new BinaryReader(fs);
                 bytes = br.ReadBytes((Int32)fs.Length);
                 hotelRoomCategoryViewModel.RoomImage = bytes;
             }
+            else
+            {
+                hotelRoomBind = hotelDetails.GetRoomCategoryDetail(hotelRoomCategoryViewModel.HotelRoomId);
+                hotelRoomCategoryViewModel.RoomImage = hotelRoomBind.RoomImage;
+            }
             hotelRoomCategoryViewModel.UploadDate = DateTime.Now;
-            HotelRoomBind hotelRoomBind = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(hotelRoomCategoryViewModel);                 //Updating Hotel Details
+            hotelRoomBind = AutoMapper.Mapper.Map<HotelRoomCategoryViewModel, HotelRoomBind>(hotelRoomCategoryViewModel);                 //Updating Hotel Details
             hotelDetails.UpdateRoomType(hotelRoomBind);
             if (User.IsInRole("Admin"))
                 return RedirectToAction("ManageHotel", "Hotel", new { Approved = "Approved" });

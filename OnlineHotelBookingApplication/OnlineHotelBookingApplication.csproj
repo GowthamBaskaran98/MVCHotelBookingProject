@@ -136,9 +136,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Controllers\Content\bootstrap.css" />
+    <Content Include="Controllers\Content\bootstrap.min.css" />
+    <Content Include="Controllers\Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\computer-icons-user-profile-avatar-download-png-favpng-HCP2ruSy9qq256gNd6va7BTdJ.jpg" />
@@ -188,8 +188,6 @@
     </Compile>
     <Compile Include="Models\BookViewModel.cs" />
     <Compile Include="Models\HotelTimingViewModel.cs" />
-    <Compile Include="Models\ImageObjectViewModel.cs" />
-    <Compile Include="Models\MyCartViewModel.cs" />
     <Compile Include="Models\ReferralViewModel.cs" />
     <Compile Include="Models\RoomCategoryViewModel.cs" />
     <Compile Include="Models\HotelRoomCategoryViewModel.cs" />

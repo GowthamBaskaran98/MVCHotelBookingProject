@@ -1,4 +1,5 @@
-﻿using OnlineHotelBookingApplication.Entity;
+﻿
+using OnlineHotelBookingApplication.Entity;
 using OnlineHotelBookingApplication.Models;
 using System;
 using System.Collections.Generic;

@@ -13,10 +13,11 @@
                 <td>HotelRoomId</td>
                 <td>Hotel Id</td>
                 <td>RoomId</td>
-                <td>Adults per Room</td>s
+                <td>Adults per Room</td>
                 <td>Available Rooms</td>
                 <td>Cost</td>
             </tr>
+            
             @foreach (OnlineHotelBookingApplication.Models.HotelRoomCategoryViewModel user in Model.HotelRoomCategoryViewModels)
             {
                 <tr>
@@ -90,11 +91,6 @@
             <tr>
                 <td>
                     <input type="submit" value="Add RoomType" name="Submit"/>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="submit" value="Save" name="Save"/>
                 </td>
             </tr>
         </table>    

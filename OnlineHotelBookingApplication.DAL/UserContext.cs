@@ -9,7 +9,6 @@ namespace OnlineHotelBookingApplication.DAL
         public DbSet<Hotel> HotelDatabases { get; set; }
         public DbSet<RoomCategory> RoomCategories { get; set; }
         public DbSet<HotelRoomBind> HotelRooms { get; set; }
-        public DbSet<ImageObject> ImageObjects { get; set; }
         public DbSet<BookHotel> BookHotels { get; set; }
         public DbSet<Referral> Referrals { get; set; }
         //public DbSet<HotelRoomCategory> HotelRoomCategories { get; set; }

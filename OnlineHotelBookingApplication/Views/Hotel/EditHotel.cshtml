@@ -4,7 +4,7 @@
 }
 
 
-@using (Html.BeginForm("EditHotel", "Hotel", FormMethod.Post))
+@using (Html.BeginForm("EditHotel", "Hotel", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="subPages">
@@ -59,12 +59,18 @@
                 </td>
             </tr>
             <tr>
+                <td>
+                    <input type="file" id="HotelImages" name="HotelImages" />
+                </td>
+            </tr>
+            <tr>
                 <td>Uploaded Image:</td>
                 <td>
-                    <div class="HotelImage">
-                        <img src="@ViewBag.Image" alt="Alternate Text" />
-                        @Html.HiddenFor(Model => Model.HotelImage)
-                    </div>
+                    @{
+                        var bases = Convert.ToBase64String(Model.HotelImage);
+                        var img = String.Format("data:image/gif;base64,{0}", bases);
+                        <img style="width:70px;height:70px" src="@img" class="HotelImage" />
+                    }
                 </td>
             </tr>
             <tr>

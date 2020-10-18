@@ -18,8 +18,8 @@ namespace OnlineHotelBookingApplication.DAL
         Hotel GetHotelDetailsById(int HotelId);
         void DeleteHotel(Hotel deleteHotel);
         void UpdateHotel(Hotel updateHotel);
-        void AddImage(ImageObject image);
-        List<ImageObject> GetImagesByName(string hotelName);
+        //void AddImage(ImageObject image);
+        //List<ImageObject> GetImagesByName(string hotelName);
         int GetCountOfHotel();
         bool CheckHotelName(string HotelName);
         void UpdateRoomType(HotelRoomBind hotelRoomBind);
@@ -147,22 +147,6 @@ namespace OnlineHotelBookingApplication.DAL
                 userContext.SaveChanges();
             }
         }
-        public void AddImage(ImageObject image)
-        {
-            using (UserContext userContext = new UserContext())
-            {
-                userContext.ImageObjects.Add(image);                                                //Adding Image in database
-                userContext.SaveChanges();
-            }
-        }
-        public List<ImageObject> GetImagesByName(string hotelName)
-        {
-            using (UserContext userContext = new UserContext())
-            {                                                                                       //Getting Image using Hotel Name
-                List<ImageObject> hotel = userContext.ImageObjects.Where(model => model.FileName == hotelName).ToList();
-                return hotel;
-            }
-        }
         public int GetCountOfHotel()
         {
             using (UserContext userContext = new UserContext())     
@@ -173,7 +157,7 @@ namespace OnlineHotelBookingApplication.DAL
         public bool CheckHotelName(string HotelName)
         {
             using (UserContext userContext = new UserContext())
-            {
+            {                                                                                       //For Checking Hotel Name
                 Hotel hotel = userContext.HotelDatabases.Where(model => model.HotelName == HotelName).SingleOrDefault();
                 if(hotel!=null)
                     return true;
@@ -183,7 +167,7 @@ namespace OnlineHotelBookingApplication.DAL
         public void UpdateRoomType(HotelRoomBind hotelRoomBind)
         {
             using (UserContext userContext = new UserContext())
-            {
+            {                                                                                         //For Updating the details of room type
                 userContext.Entry(hotelRoomBind).State = EntityState.Modified;
                 userContext.SaveChanges();
             }
@@ -198,7 +182,7 @@ namespace OnlineHotelBookingApplication.DAL
         public void DeleteRoomType(int HotelRoomId)
         {
             using (UserContext userContext = new UserContext())
-            {
+            {                                                                                               
                 SqlParameter HotelRoom = new SqlParameter("@HotelRoomId", HotelRoomId);           //Deleting Hotel  Based on Hotel Id
                 int result = userContext.Database.ExecuteSqlCommand("sp_DeleteRoomType @HotelRoomId", HotelRoom);
             }
@@ -206,7 +190,7 @@ namespace OnlineHotelBookingApplication.DAL
         public void BookHotel(BookHotel bookHotel)
         {
             using (UserContext userContext = new UserContext())
-            {
+            {                                                                                      //Booking the hotel
                 userContext.BookHotels.Add(bookHotel);
                 userContext.SaveChanges();
             }
@@ -214,7 +198,7 @@ namespace OnlineHotelBookingApplication.DAL
         public void AcceptHotel(int HotelId)
         {
             using (UserContext userContext = new UserContext())
-            {
+            {                                                                                         //Approving the requested hotel by HotelId
                 var hotel = userContext.HotelDatabases.Find(HotelId);
                 string Gmail = hotel.HotelOwner;
                 hotel.Permission = "Approved";
@@ -227,7 +211,7 @@ namespace OnlineHotelBookingApplication.DAL
         public void DeclineHotel(int HotelId)
         {
             using (UserContext userContext = new UserContext())
-            {
+            {                                                                                           //Declining the requested hotel by HotelId
                 var hotel = userContext.HotelDatabases.Find(HotelId);
                 string Gmail = hotel.HotelOwner;
                 if (hotel.Permission != "Declined")
